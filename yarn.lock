@@ -8330,6 +8330,10 @@ unset-value@^1.0.0:
     has-value "^0.3.1"
     isobject "^3.0.0"
 
+unstated-x@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/unstated-x/-/unstated-x-0.1.1.tgz#86da7cf3bfe3e0fb973f27bc8a1c28c97df53c03"
+
 upath@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/upath/-/upath-1.1.0.tgz#35256597e46a581db4793d0ce47fa9aebfc9fabd"

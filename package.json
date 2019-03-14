@@ -11,9 +11,9 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8",
+    "styled-components": "^4.1.3",
     "typescript": "3.3.yar",
-   
-    "styled-components": "^4.1.3"
+    "unstated-x": "^0.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

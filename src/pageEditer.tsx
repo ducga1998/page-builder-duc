@@ -207,13 +207,15 @@ const WrapperPage = styled.div`
     width  :100%;
     height : 900px;
     background :#DFE7EF;
+    position : relative;
     div {
         background : white;
         padding :10px;
     }
     section{
-        margin : 50px;
+        /* margin : 50px; */
         padding : 40px;
         background : white;
+
     }
 `
