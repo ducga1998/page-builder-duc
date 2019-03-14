@@ -6,18 +6,8 @@ class PageEditer extends React.Component<any> {
     flowRef: HTMLElement 
     // the first drap 
     handleDrapEnterCapture = (ev) => {
-        console.log('enter', ev.target)
-        // const data = ev.target.getAttribute('data-element')
-        // console.log('data ' , data)
-        // ev.dataTransfer.setData("PB-duc", 'data');
     }
     handleDrapLeaveCapture = (event) => {
-        // console.log('leave')
-        // const dom = event.target
-        // console.log('leave dom' , dom)
-        // const button =  document.createElement('button')
-        // dom.appendChild(button)
-        // button.innerHTML ='button'
     }
     handleDrapStartCapture = (ev) => {
         console.log('start', ev)
@@ -81,11 +71,6 @@ class PageEditer extends React.Component<any> {
 
         }
         INTERATION.position = checkTH
-
-
-
-
-
     }
     handleDropCapture = (ev) => {
         ev.preventDefault()
