@@ -1,9 +1,12 @@
-import {Container , SubscribeOne } from 'unstated-x'
-class ElementContainer extends Container {
-    constructor(){
-        const {
-
-        } = this.state
+import {SubscribeOne , Container } from 'unstated-x'
+import BaseContainer from './baseContainer'
+class ElementContainer extends BaseContainer {
+    constructor(state){
+        super(state);
+    }   
+    setState(state, callback){
+    return super.setState(state,callback)
     }
+
 }
 export default ElementContainer

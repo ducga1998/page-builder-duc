@@ -9,8 +9,6 @@ class PageEditer extends React.Component<any> {
     }
     handleDrapLeaveCapture = (event) => {
     }
-
-
     handleDrapOverCapture = (event) => {
         event.preventDefault()
         const targetDom = event.target as HTMLElement
@@ -78,8 +76,6 @@ class PageEditer extends React.Component<any> {
         dom.setAttribute('draggable', 'true')
         dom.setAttribute('data-element', nameDom)
         const section = document.createElement('section')
-        // if(INTERATION.position === '')
-        console.log('INTERATION.position)', INTERATION.position)
         switch (INTERATION.position) {
             case 'bottom':
                 ev.target.parentElement.appendChild(dom)
@@ -97,6 +93,7 @@ class PageEditer extends React.Component<any> {
         }
         console.dir(ev.target.parentElement)
         INTERATION.reset()
+        
         // ev.target.appendChild(dom);
         this.refSel.style.display = 'none'
         this.flowRef.style.display = 'none'
@@ -122,7 +119,6 @@ class PageEditer extends React.Component<any> {
             />
             <Selection ref={e => this.refSel = e} />
             <Flow ref={e => this.flowRef = e} />
-
         </>
     }
 }

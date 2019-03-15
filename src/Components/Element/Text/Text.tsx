@@ -1,14 +1,11 @@
 import * as React from 'react'
-import { StyledOutlineButton } from '../../styled/button';
 import enhanceElement from '../../../Core/enhanceElement';
 import styled from 'styled-components';
-// import { Button } from 'react-native';
-class Button extends React.Component {
+class Text extends React.Component {
     render() {
-        return <Text contentEditAble />
+        return <Span ContentEditable />
     }
 }
-const Text = styled.span`
-
+const Span = styled.span`
 `
-export default enhanceElement(Button)
+export default enhanceElement(Text)
