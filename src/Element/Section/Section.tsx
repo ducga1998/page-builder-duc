@@ -5,7 +5,7 @@ import styled from 'styled-components';
 class Section extends React.Component {
     render() {
         return <$Section>
-
+            section 
         </$Section>
     }
 }

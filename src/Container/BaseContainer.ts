@@ -1,9 +1,11 @@
 import { Container } from 'unstated-x'
 import uuid from 'uuid'
 export const storeElement  = new Map()
+/* 
+    baseContainer help me  save all elemenet inited into storeElement
+*/
 class BaseContainer extends Container<any> {
-    undo  = []
-    redo  = []
+   
     constructor(state){
         super(state);
         const id  = uuid()
