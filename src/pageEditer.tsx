@@ -2,20 +2,14 @@ import * as React from 'react'
 import styled from 'styled-components';
 import INTERATION from './reuse/interaction'
 class PageEditer extends React.Component<any> {
-    refSel: HTMLElement 
-    flowRef: HTMLElement 
+    refSel: HTMLElement
+    flowRef: HTMLElement
     // the first drap 
     handleDrapEnterCapture = (ev) => {
     }
     handleDrapLeaveCapture = (event) => {
     }
-    handleDrapStartCapture = (ev) => {
-        console.log('start', ev)
-        //    console.log('enter', ev.target)
-        const data = ev.target.getAttribute('data-element')
-        console.log('data ', data)
-        ev.dataTransfer.setData("PB-duc", data);
-    }
+
 
     handleDrapOverCapture = (event) => {
         event.preventDefault()
@@ -85,13 +79,13 @@ class PageEditer extends React.Component<any> {
         dom.setAttribute('data-element', nameDom)
         const section = document.createElement('section')
         // if(INTERATION.position === '')
-        console.log('INTERATION.position)',INTERATION.position)
+        console.log('INTERATION.position)', INTERATION.position)
         switch (INTERATION.position) {
             case 'bottom':
                 ev.target.parentElement.appendChild(dom)
                 break;
             case 'top':
-                ev.target.parentElement.appendChild(section.appendChild(dom),'section')
+                ev.target.parentElement.appendChild(section.appendChild(dom), 'section')
                 break;
             case 'left':
                 ev.target.before(dom)
@@ -114,42 +108,26 @@ class PageEditer extends React.Component<any> {
         event.dataTransfer.setData("PB-duc", data);
     }
     handleMouseDown = (event) => {
-        console.log('event' , event.target)
+        console.log('event', event.target)
     }
     render() {
-        return <><WrapperPage
-            draggable
-            onDragStartCapture={this.handleDrapStart}
-            onDragOverCapture={this.handleDrapOverCapture}
-            onDragLeaveCapture={this.handleDrapLeaveCapture}
-            onDropCapture={this.handleDropCapture}
-            onMouseDown={this.handleMouseDown}
-        />
+        return <>
+            <WrapperPage
+                draggable
+                onDragStartCapture={this.handleDrapStart}
+                onDragOverCapture={this.handleDrapOverCapture}
+                onDragLeaveCapture={this.handleDrapLeaveCapture}
+                onDropCapture={this.handleDropCapture}
+                onMouseDown={this.handleMouseDown}
+            />
             <Selection ref={e => this.refSel = e} />
             <Flow ref={e => this.flowRef = e} />
-            <Inspetor
-                onDragStartCapture={this.handleDrapStartCapture}
-            >
-                {
-                    ['div', 'a', 'span', 'button', 'input', 'section'].map(item => {
-                        return <DrapItem
-                            data-element={item}
-                            draggable
-                        >
-                            {item}
-                        </DrapItem>
-                    })
-                }
 
-            </Inspetor>
         </>
     }
 }
 
 export default PageEditer
-const Inspetor = styled.div`
-display : flex;
-`
 const Flow = styled.div`
     position: absolute;
 	box-sizing: border-box;
@@ -197,12 +175,7 @@ const Selection = styled.div`
 		border: 2px dashed red;
 	}
 `
-const DrapItem = styled.div`
-    width : 50px;
-    height : 50px;
-    background : red;
-    margin: 20px;
-`
+
 const WrapperPage = styled.div`
     width  :100%;
     height : 900px;
