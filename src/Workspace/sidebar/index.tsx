@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components';
-import common from '../../Components/Element/common';
+
 const fakeData =  [
     {
         element1 : [
@@ -12,7 +12,7 @@ const fakeData =  [
 
         ]
     } 
-]
+] as any
 class Sidebar extends React.Component {
     handleStartDrap = (ev) => {
         console.log('start', ev)

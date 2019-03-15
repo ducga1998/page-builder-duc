@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { StyledOutlineButton } from '../../styled/button';
-import enhanceElement from '../../../Core/enhanceElement';
+import enhanceElement from '../../Core/enhanceElement';
+import { StyledOutlineButton } from '../../Components/styled/button';
 // import { Button } from 'react-native';
 class Button extends React.Component {
     render() {

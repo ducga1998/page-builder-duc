@@ -5,7 +5,7 @@ class ElementContainer extends BaseContainer {
         super(state);
     }   
     setState(state, callback){
-    return super.setState(state,callback)
+        return super.setState(state,callback)
     }
 
 }
