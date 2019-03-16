@@ -1,11 +1,11 @@
 import * as React from 'react'
-import enhanceElement from '../../../Core/enhanceElement';
 import styled from 'styled-components';
+import enhanceElement from '../../Core/enhanceElement';
 class Text extends React.Component {
     render() {
-        return <Span ContentEditable />
+        return <$Span contentEditable={true} />
     }
 }
-const Span = styled.span`
+const $Span = styled.span`
 `
 export default enhanceElement(Text)

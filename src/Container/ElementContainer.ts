@@ -13,7 +13,11 @@ class ElementContainer extends BaseContainer {
         const parentContainer = storeElement.get(parentId)
         
     }
-    
+    setStyleString() {
+        return  () => {
+            console.log('nguyen minh duc')
+        }
+    }
     setStyle(){
 
     }

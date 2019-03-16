@@ -4,7 +4,7 @@ import { Subscribe } from 'unstated-x';
 class Inspector extends React.Component {
     
     render() {
-        return <Subscribe>
+        return <Subscribe >
         {
             () => {
                 return <div>

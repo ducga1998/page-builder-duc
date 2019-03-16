@@ -20,7 +20,6 @@ function convertDataToContainer(data) {
             const children = data.filter(childData => rootData.children.filter(idChild => childData.id === idChild).length);
             children.map(child => {
                 const element =  addItem(child)
-                console.log('element',element)
                 const id = element.state.id
                 rootData.children = []
                 rootData.children.push(id)
@@ -28,7 +27,6 @@ function convertDataToContainer(data) {
             
         }
         return new ElementContainer(rootData)
-        
     }
 
 
@@ -134,7 +132,7 @@ class PageEditer extends React.Component<any> {
         }
         console.dir(ev.target.parentElement)
         INTERATION.reset()
-
+        // convertDataToContainer()
         // ev.target.appendChild(dom);
         this.refSel.style.display = 'none'
         this.flowRef.style.display = 'none'

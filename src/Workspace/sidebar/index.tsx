@@ -1,23 +1,21 @@
 import * as React from 'react'
 import styled from 'styled-components';
 
-const fakeData =  [
-    {
-        element1 : [
-            {id : 0 , type : 'Section', children : [1]} ,
-            {id : 1, type : 'Button',  children  : [2],  styles : {
-                backgroundColor : 'red'
-            }},
-            {id : 2, type : 'Text', data : { value : 'Button'} }
-
-        ]
-    } 
-] as any
+const fakeData = [
+    [
+        { id: 0, type: 'Section', children: [1] },
+        {
+            id: 1, type: 'Button', children: [2], styles: {
+                backgroundColor: 'red'
+            }
+        },
+        { id: 2, type: 'Text', data: { value: 'Button' } }
+    ]
+]
 class Sidebar extends React.Component {
     handleStartDrap = (ev) => {
         console.log('start', ev)
         const data = ev.target.getAttribute('data-element')
-        console.log('data ', data)
         ev.dataTransfer.setData("PB-duc", data);
     }
     render() {
@@ -38,8 +36,9 @@ class Sidebar extends React.Component {
             <ListFakeData>
                 {
                     fakeData.map(item  => {
+                        const dataString = JSON.stringify(item)
                         return <DrapItem 
-                        data-element={item} 
+                        data-element={dataString} 
                         draggable 
                         onDragStartCapture={this.handleStartDrap}
                         />
