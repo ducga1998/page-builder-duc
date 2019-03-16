@@ -4,9 +4,10 @@ import enhanceElement from '../../Core/enhanceElement';
 class Text extends React.Component {
     static type = 'Text'
     render() {
-        return <$Span contentEditable={true}>cascash</$Span>
+        return <$Span contentEditable={true}>cascdskjcasmcmaslash</$Span>
     }
 }
-const $Span = styled.span`
+const $Span = styled.div`
+
 `
 export default enhanceElement(Text)

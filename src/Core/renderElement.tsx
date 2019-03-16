@@ -6,20 +6,17 @@ import * as React from "react";
 // when element 
 export default function renderElement(idElement ) {
     const elementContainer = storeElement.get(idElement)
- 
+    if(!elementContainer) return null
     const { type, data, styles, children } = elementContainer.state
     const Element = common[type]
-    if (children && children.length > 0) {
-        return children.map(child => {
-            return <Element>{renderElement(child )}</Element> 
-        })
-    }
-    return <Subscribe to={[elementContainer]}>
+    return <Subscribe to={[elementContainer]} key={idElement}>
             {eleContainer => {
-                const props = { ...Element.defaultProps, ...eleContainer.state }
-                return <Element
-                 {...props} 
-                 />
+                const {id , type, } = eleContainer.state
+                const props = { ...Element.defaultProps, ...{id , type ,data }, }
+                return <Element {...props}>
+                    {children.map((childId: string) => renderElement(childId))}
+                </Element>
+             
 
             }}
         </Subscribe>

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 class Section extends React.Component {
     static type = 'Section'
     render() {
+        console.log('section children',this.props.children)
         return <$Section>
             {this.props.children} 
         </$Section>

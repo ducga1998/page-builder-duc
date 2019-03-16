@@ -111,7 +111,6 @@ class PageEditer extends React.Component<any> {
         const dropId  = domDrop.getAttribute('data-element')
         console.log('dropId',dropId)
         const containerDrop  = storeElement.get(dropId)
-        console.log(containerDrop )
         
         const {children}= containerDrop.state
       

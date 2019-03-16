@@ -4,7 +4,7 @@ import { StyledOutlineButton } from '../../Components/styled/button';
 class Button extends React.Component {
     static type = 'Button'
     render() {
-        return <button>{this.props.children} </button>
+        return <StyledOutlineButton>{this.props.children} </StyledOutlineButton>
     }
 }
 
