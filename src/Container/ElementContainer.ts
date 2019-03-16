@@ -1,19 +1,6 @@
-import { storeElement } from './BaseContainer';
+import BaseContainer, { storeElement } from './BaseContainer';
 import {SubscribeOne , Container } from 'unstated-x'
-import HistoryContainer from './HistoryContainer';
-/* 
-    struct element    this.state = {
-        data : Container => {
-            state : {
-                ...defaultProps 
-            }
-        },
-        style : Container => {
-            
-        }
-    }
-*/
-class ElementContainer extends HistoryContainer {
+class ElementContainer extends BaseContainer {
     
     constructor(state){
         super(state);

@@ -1,6 +1,47 @@
 import * as React from 'react'
 import styled from 'styled-components';
 import INTERATION from './reuse/interaction'
+import ElementContainer from './Container/ElementContainer';
+
+
+const fakeData = [
+    { id: 0, type: 'Section', children: [1] },
+    {
+        id: 1, type: 'Button', children: [2], styles: {
+            backgroundColor: 'red'
+        }
+    },
+    { id: 2, type: 'Text', data: { value: 'Button' } }
+]
+function convertDataToContainer(data) {
+    const root = data.find(item => item.id === 0)
+    const addItem = (rootData) => {
+        if (rootData.children) {
+            const children = data.filter(childData => rootData.children.filter(idChild => childData.id === idChild).length);
+            children.map(child => {
+                const element =  addItem(child)
+                console.log('element',element)
+                const id = element.state.id
+                rootData.children = []
+                rootData.children.push(id)
+            })
+            
+        }
+        return new ElementContainer(rootData)
+        
+    }
+
+
+
+
+
+
+    addItem(root)
+    // children is arr data children 
+
+
+}
+convertDataToContainer(fakeData)
 class PageEditer extends React.Component<any> {
     refSel: HTMLElement
     flowRef: HTMLElement
@@ -93,7 +134,7 @@ class PageEditer extends React.Component<any> {
         }
         console.dir(ev.target.parentElement)
         INTERATION.reset()
-        
+
         // ev.target.appendChild(dom);
         this.refSel.style.display = 'none'
         this.flowRef.style.display = 'none'

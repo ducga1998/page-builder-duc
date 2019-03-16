@@ -9,6 +9,7 @@ class BaseContainer extends Container<any> {
     constructor(state){
         super(state);
         const id  = uuid()
+        this.state = {...state , ...{id}}
         storeElement.set(id , this)
     }   
     setState(state, callback){

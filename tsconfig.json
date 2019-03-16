@@ -2,9 +2,10 @@
   "compilerOptions": {
     "target": "es5",
     "lib": [
+      "es6",
       "dom",
-      "dom.iterable"
-    ],
+      "dom.iterable",
+    ],	
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
