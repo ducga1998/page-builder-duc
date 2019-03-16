@@ -10,8 +10,7 @@ class ElementContainer extends BaseContainer {
         return super.setState(state,callback)
     }
     addItem(idItem ,parentId){
-        const parentContainer = storeElement.get(parentId)
-        
+
     }
     setStyleString() {
         return  () => {

@@ -5,7 +5,6 @@ export const storeElement  = new Map()
     baseContainer help me  save all elemenet inited into storeElement
 */
 class BaseContainer extends Container<any> {
-   
     constructor(state){
         super(state);
         const id  = uuid()

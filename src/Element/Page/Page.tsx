@@ -13,7 +13,7 @@ interface IPage {
     
 }
 export default class Page extends React.Component<IPage> {
-    
+    static type = 'Page'
     render() {
         return <div>
 

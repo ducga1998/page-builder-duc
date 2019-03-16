@@ -7,14 +7,15 @@ import { Provider } from 'unstated-x'
 import InspectorPage from './Workspace/sidebar';
 class App extends Component {
   render() {
-    return <Provider>
-      <UITheme>
-        <UITooltip>
-          <InspectorPage />
-          <PageEditer />
-        </UITooltip>
-      </UITheme>
-    </Provider>
+    return <UITheme>
+          <UITooltip>
+          <Provider>
+            <InspectorPage />
+            <PageEditer />
+            </Provider>
+          </UITooltip>
+        </UITheme>
+   
   }
 }
 

@@ -1,5 +1,5 @@
 import { Container } from 'unstated-x'
-import BaseContainer from './baseContainer';
+import BaseContainer from './BaseContainer';
 class WorkspaceContainer extends BaseContainer {
  state = {
      seleted : [],

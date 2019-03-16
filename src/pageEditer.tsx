@@ -2,8 +2,10 @@ import * as React from 'react'
 import styled from 'styled-components';
 import INTERATION from './reuse/interaction'
 import ElementContainer from './Container/ElementContainer';
-
-
+import renderElement from './Core/renderElement'
+import ReactDOM from 'react-dom';
+import { Provider } from 'unstated-x';
+console.log(renderElement)
 const fakeData = [
     { id: 0, type: 'Section', children: [1] },
     {
@@ -28,18 +30,11 @@ function convertDataToContainer(data) {
         }
         return new ElementContainer(rootData)
     }
-
-
-
-
-
-
-    addItem(root)
-    // children is arr data children 
+    return addItem(root)
 
 
 }
-convertDataToContainer(fakeData)
+// convertDataToContainer(fakeData)
 class PageEditer extends React.Component<any> {
     refSel: HTMLElement
     flowRef: HTMLElement
@@ -108,7 +103,13 @@ class PageEditer extends React.Component<any> {
         ev.stopPropagation()
         console.log('drop', ev.target)
         const nameDom = ev.dataTransfer.getData("PB-duc");
-        console.log('nameDom', nameDom)
+        const dataObj  = JSON.parse(`${nameDom}`)
+        console.log('JSON.parse(nameDom)',dataObj)
+        const rootContainer  = convertDataToContainer(dataObj)
+        const elementInstance  = renderElement(rootContainer.state.id)
+        // ev.target.appendChild(domrender)
+      
+        return
         if (!nameDom || nameDom.length === 0) return
         const dom = document.createElement(nameDom) as HTMLElement
         dom.innerHTML = nameDom
@@ -132,7 +133,7 @@ class PageEditer extends React.Component<any> {
         }
         console.dir(ev.target.parentElement)
         INTERATION.reset()
-        // convertDataToContainer()
+       
         // ev.target.appendChild(dom);
         this.refSel.style.display = 'none'
         this.flowRef.style.display = 'none'
@@ -148,6 +149,7 @@ class PageEditer extends React.Component<any> {
     }
     render() {
         return <>
+         <Provider>
             <WrapperPage
                 draggable
                 onDragStartCapture={this.handleDrapStart}
@@ -156,9 +158,10 @@ class PageEditer extends React.Component<any> {
                 onDropCapture={this.handleDropCapture}
                 onMouseDown={this.handleMouseDown}
             />
+            </Provider>
             <Selection ref={e => this.refSel = e} />
             <Flow ref={e => this.flowRef = e} />
-        </>
+            </>
     }
 }
 

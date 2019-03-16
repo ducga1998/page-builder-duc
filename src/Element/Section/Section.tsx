@@ -3,9 +3,10 @@ import enhanceElement from '../../Core/enhanceElement';
 import styled from 'styled-components';
 // import { Button } from 'react-native';
 class Section extends React.Component {
+    static type = 'Section'
     render() {
         return <$Section>
-            section 
+            {this.props.children} 
         </$Section>
     }
 }
