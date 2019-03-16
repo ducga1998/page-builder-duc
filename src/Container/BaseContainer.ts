@@ -7,7 +7,14 @@ export const storeElement  = new Map()
 class BaseContainer extends Container<any> {
     constructor(state){
         super(state);
-        const id  = uuid()
+        let {id , children} = state
+        if(!id){
+            id = uuid()
+        }
+        if(!children ){
+            this.state.children = []
+        }
+        // const id  = uuid()
         this.state = {...state , ...{id}}
         storeElement.set(id , this)
     }   

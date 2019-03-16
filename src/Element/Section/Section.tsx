@@ -11,6 +11,7 @@ class Section extends React.Component {
     }
 }
 const $Section = styled.div`
-
+    padding : 40px;
+    background : red;
 `
 export default enhanceElement(Section)

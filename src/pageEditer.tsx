@@ -5,6 +5,7 @@ import ElementContainer from './Container/ElementContainer';
 import renderElement from './Core/renderElement'
 import ReactDOM from 'react-dom';
 import { Provider } from 'unstated-x';
+import { storeElement } from './Container/BaseContainer';
 console.log(renderElement)
 const fakeData = [
     { id: 0, type: 'Section', children: [1] },
@@ -28,7 +29,7 @@ function convertDataToContainer(data) {
             })
             
         }
-        return new ElementContainer(rootData)
+        return new ElementContainer({...rootData, id: undefined})
     }
     return addItem(root)
 
@@ -101,12 +102,27 @@ class PageEditer extends React.Component<any> {
     handleDropCapture = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        console.log('drop', ev.target)
         const nameDom = ev.dataTransfer.getData("PB-duc");
         const dataObj  = JSON.parse(`${nameDom}`)
-        console.log('JSON.parse(nameDom)',dataObj)
         const rootContainer  = convertDataToContainer(dataObj)
-        const elementInstance  = renderElement(rootContainer.state.id)
+        const domDrop = ev.target.closest('[data-element]')
+        console.log('domDrop',domDrop)
+        if(!domDrop) return
+        const dropId  = domDrop.getAttribute('data-element')
+        console.log('dropId',dropId)
+        const containerDrop  = storeElement.get(dropId)
+        console.log(containerDrop )
+        
+        const {children}= containerDrop.state
+      
+        children.push(rootContainer.state.id)
+        console.log('children',children)
+        // renderElement(rootContainer.state.id)
+        // renderElement(rootContainer.state.id)
+        console.log('rootContainer',rootContainer)
+        containerDrop.setState({children},() => {
+
+        })
         // ev.target.appendChild(domrender)
       
         return
@@ -157,7 +173,9 @@ class PageEditer extends React.Component<any> {
                 onDragLeaveCapture={this.handleDrapLeaveCapture}
                 onDropCapture={this.handleDropCapture}
                 onMouseDown={this.handleMouseDown}
-            />
+            >
+            {this.props.children}
+            </WrapperPage>
             </Provider>
             <Selection ref={e => this.refSel = e} />
             <Flow ref={e => this.flowRef = e} />
@@ -219,14 +237,5 @@ const WrapperPage = styled.div`
     height : 900px;
     background :#DFE7EF;
     position : relative;
-    div {
-        background : white;
-        padding :10px;
-    }
-    section{
-        /* margin : 50px; */
-        padding : 40px;
-        background : white;
-
-    }
+  
 `
