@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components';
 import INTERATION from './reuse/interaction'
 import ElementContainer from './Container/ElementContainer';
-import { Provider } from 'unstated-x';
+import { Provider, SubscribeOne } from 'unstated-x';
 import { storeElement } from './Container/BaseContainer';
 import Selection from './Workspace/selection'
 // import WorkspaceContainer from './Container/WorkspaceContainer';
@@ -27,41 +27,41 @@ function convertDataToContainer(data) {
 
 }
 //handle work update position 
-function updatePositionElement(idDrop , idRoot){
-    console.log('run function success',INTERATION.position )
-    const elementContainer  = storeElement.get(idRoot)
-    const {parentId} = elementContainer.state
+function updatePositionElement(idDrop, idRoot) {
+    console.log('run function success', INTERATION.position)
+    const elementContainer = storeElement.get(idRoot)
+    const { parentId } = elementContainer.state
     const containerDrop = storeElement.get(idDrop)
     const childrenElementDrop = containerDrop.state.children as any[]
-    if(INTERATION.position ==='inside'){
-        const {children} = containerDrop.state
+    if (INTERATION.position === 'inside') {
+        const { children } = containerDrop.state
         children.push(idRoot)
-        containerDrop.setState({children })
+        containerDrop.setState({ children })
         return
     }
-    switch(INTERATION.position){
-        case 'bottom': 
-        childrenElementDrop.push(idRoot)
-        break;
-        case 'top' : 
-        childrenElementDrop.unshift(idRoot)
-        break;
+    switch (INTERATION.position) {
+        case 'bottom':
+            childrenElementDrop.push(idRoot)
+            break;
+        case 'top':
+            childrenElementDrop.unshift(idRoot)
+            break;
         case 'left':
-        const indexDropLeft = childrenElementDrop.indexOf(parentId)
-        childrenElementDrop.splice(indexDropLeft , 0 ,  idRoot)
-        break;
+            const indexDropLeft = childrenElementDrop.indexOf(parentId)
+            childrenElementDrop.splice(indexDropLeft, 0, idRoot)
+            break;
         case 'right':
-        const indexDropRight = childrenElementDrop.indexOf(parentId)
-        childrenElementDrop.splice(indexDropRight + 1 , 0 ,  idRoot)
-        break;
+            const indexDropRight = childrenElementDrop.indexOf(parentId)
+            childrenElementDrop.splice(indexDropRight + 1, 0, idRoot)
+            break;
     }
-    containerDrop.setState({children :childrenElementDrop })
+    containerDrop.setState({ children: childrenElementDrop })
     INTERATION.reset()
 }
 class PageEditer extends React.Component<any> {
     dropEl: HTMLElement
     flowRef: HTMLElement
-    selRef :any
+    selRef: any
     // the first drap 
     handleDrapEnterCapture = (ev) => {
     }
@@ -72,9 +72,9 @@ class PageEditer extends React.Component<any> {
     handleDrapOverCapture = (event) => {
         event.preventDefault()
         const targetDom = event.target.closest('[data-element]')
-        if(!targetDom) return
+        if (!targetDom) return
         const { width, height, top, left } = targetDom.getBoundingClientRect()
-    
+
         Object.assign(this.dropEl.style, { width: width + 'px', height: height + 'px', top: top + 'px', left: left + 'px', display: 'block' })
         const nX = event.nativeEvent.offsetX
         const nY = event.nativeEvent.offsetY
@@ -131,48 +131,48 @@ class PageEditer extends React.Component<any> {
             - dropTarget
             - spice children at where
     */
-    handleDropCapture =  async (ev) => {
+    handleDropCapture = async (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        let idRoot  = ''
-        let domDrop =  ev.target.closest('[data-element]')
-        console.log('domDrop',domDrop)
+        let idRoot = ''
+        let domDrop = ev.target.closest('[data-element]')
+        console.log('domDrop', domDrop)
         if (!domDrop) return
         let idDrop = domDrop.getAttribute('data-element')
         // change idRoot
-        if( INTERATION.categoryDrapStart=== 'DRAG_ELEMENT') {
+        if (INTERATION.categoryDrapStart === 'DRAG_ELEMENT') {
             // create to data 
             const nameDom = ev.dataTransfer.getData("PB-duc");
             const dataObj = JSON.parse(`${nameDom}`)
-            
-            const containerElement =  convertDataToContainer(dataObj)
+
+            const containerElement = convertDataToContainer(dataObj)
             idRoot = containerElement.state.id
         }
-        else if (INTERATION.categoryDrapStart=== 'MOVE_ELEMENT'){
+        else if (INTERATION.categoryDrapStart === 'MOVE_ELEMENT') {
             // move element
-            const {selected} = workspaceContainer.state
-            const containerElement =  storeElement.get(selected[0])
-          
-            const{ id , parentId}  = containerElement.state ;   
-            if(idDrop === parentId && INTERATION.position ==='inside') {
+            const { selected } = workspaceContainer.state
+            const containerElement = storeElement.get(selected[0])
+
+            const { id, parentId } = containerElement.state;
+            if (idDrop === parentId && INTERATION.position === 'inside') {
                 console.log('run return : ((')
                 INTERATION.reset()
                 return
             }
             const containerParent = storeElement.get(parentId)
-          await  containerParent.setState({children :containerParent.state.children.filter(child => child !== id) },() => {
-                workspaceContainer.setState({selected : [idDrop]})
+            await containerParent.setState({ children: containerParent.state.children.filter(child => child !== id) }, () => {
+                workspaceContainer.setState({ selected: [idDrop] })
             })
-            idRoot= id
+            idRoot = id
         }
-        
-        if(INTERATION.position !=='inside'){ 
-            const parentDom  = domDrop.parentElement.closest('[data-element]')
+
+        if (INTERATION.position !== 'inside') {
+            const parentDom = domDrop.parentElement.closest('[data-element]')
             idDrop = parentDom.getAttribute('data-element')
         }
-        
-       await  updatePositionElement(idDrop , idRoot)
-       
+
+        await updatePositionElement(idDrop, idRoot)
+        await workspaceContainer.setState({selected : [idRoot]})
         this.dropEl.style.display = 'none'
         this.flowRef.style.display = 'none'
     }
@@ -184,10 +184,10 @@ class PageEditer extends React.Component<any> {
     handleMouseDown = async (event) => {
         const target = event.target as HTMLElement
         const targetDom = event.target.closest('[data-element]')
-        if(!targetDom )return
+        if (!targetDom) return
         const idSelect = targetDom.getAttribute('data-element')
-        await workspaceContainer.setState({selected : [idSelect]})
-        this.selRef.updatePosition(targetDom)
+        await workspaceContainer.setState({ selected: [idSelect] })
+
     }
     render() {
         return <Provider>
@@ -203,7 +203,12 @@ class PageEditer extends React.Component<any> {
             </WrapperPage>
             <DropOver ref={e => this.dropEl = e} />
             <Flow ref={e => this.flowRef = e} />
-            <Selection  ref={e =>this.selRef = e} />
+            <SubscribeOne to={workspaceContainer} bind={['selected']}>
+                {() => {
+                    const { selected } = workspaceContainer.state
+                    return <Selection idSelected={selected[0]} />
+                }}
+            </SubscribeOne>
         </Provider>
     }
 }
@@ -221,25 +226,10 @@ const Flow = styled.div`
 const DropOver = styled.div`
 	position: fixed;
 	box-sizing: border-box;
-	border: 2px solid red;
+    border: 2px solid ${props => props.theme.space.body};
 	pointer-events: none;
 	display: none;
 	z-index: 10;
-	a {
-		pointer-events: initial;
-		&:hover {
-			color: #fff;
-		}
-	}
-	&:after{
-		position: absolute;
-		top:-2px;
-		right: -2px;
-		bottom: -2px;
-		left: -2px;
-		content: '';
-		border: 2px dashed red;
-	}
 `
 
 const WrapperPage = styled.div`

@@ -2,41 +2,31 @@ import * as React from 'react'
 import styled from 'styled-components';
 import { SubscribeOne } from 'unstated-x';
 import workspaceContainer from '../Container/WorkspaceContainer';
+import { storeElement } from '../Container/BaseContainer';
 
 class Selection extends React.Component<any> {
     state = {
         target : null
     }
     selRef :HTMLElement
-    updatePosition = async (target ) => {
-        const scrollTop =window.scrollY
-        console.log('scrollTop',scrollTop )
-        if(!target &&!this.state.target) return
-        await this.setState({target})
-
-        if(this.state.target) {
-            target = this.state.target
-        } 
-        console.log('target',target)
+    updatePosition = async ( ) => {
+        const {idSelected} = this.props
+        const target = document.querySelector(`[data-element="${idSelected}"]`)
         const { width, height, top, left } = target.getBoundingClientRect()
-       
-     
+        const scrollTop = window.scrollY
         Object.assign(this.selRef.style, { width: width + 'px', height: height + 'px', top: top +scrollTop+ 'px', left: left + 'px', display: 'block' })
     }
-    componentDidMount = () => {
-        window.addEventListener('scroll' ,() => {
-            // this.updatePosition(this.state.target)
-        })
+    componentDidUpdate(){
+       console.log('update')
+       this.updatePosition()
     }
-    // componentWillUnmount(){
-    // }
     render() {
         return <SubscribeOne to={workspaceContainer} bind={['selected']}>
             {
                 () => {
                     const {selected} = workspaceContainer.state
                     
-                    return <$Selection ref={ e => this.selRef = e} />
+                    return <$Selection ref={ e => this.selRef = e}  />
                 }
             }
         </SubscribeOne>

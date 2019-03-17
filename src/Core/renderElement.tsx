@@ -9,6 +9,7 @@ export default function renderElement(idElement , parentId = '' ) {
     if(!container) return null
     const { type } = container.state
     const Element = common[type]
+    console.log('type',type)
     return <Subscribe to={[container]} key={idElement}>
             { 
                 elementContainer => {

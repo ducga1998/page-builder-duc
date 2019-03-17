@@ -11,6 +11,14 @@ const fakeData = [
             }
         },
         { id: 2, type: 'Text', data: { value: 'Button' } }
+    ],
+    [
+        { id: 0, type: 'Section', children: [1] } , 
+        {
+            id : 1 , type : 'Input' ,tyles: {
+                backgroundColor: 'red'
+            }
+        }
     ]
 ]
 class Sidebar extends React.Component {
@@ -22,7 +30,7 @@ class Sidebar extends React.Component {
     }
     render() {
         return <WrapperSideBar>
-            <ListDrapItem>
+            {/* <ListDrapItem>
                 {
                     ['div', 'a', 'span', 'button', 'input', 'section'].map(item => {
                         return <DrapItem
@@ -34,7 +42,7 @@ class Sidebar extends React.Component {
                         </DrapItem>
                     })
                 }
-            </ListDrapItem>
+            </ListDrapItem> */}
             <ListFakeData>
                 {
                     fakeData.map(item  => {
