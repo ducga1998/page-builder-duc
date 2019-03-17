@@ -34,6 +34,8 @@ class PageEditer extends React.Component<any> {
     handleDrapEnterCapture = (ev) => {
     }
     handleDrapLeaveCapture = (event) => {
+        this.dropEl.style.display = 'none'
+        this.flowRef.style.display = 'none'
     }
     handleDrapOverCapture = (event) => {
         event.preventDefault()
@@ -52,7 +54,7 @@ class PageEditer extends React.Component<any> {
             checkTH = 'left'
             this.flowRef.style.display = 'block'
             console.log('TH1 left')
-            this.flowRef.style.width = '2px'
+            this.flowRef.style.width = '4px'
             this.flowRef.style.height = height + 'px'
             this.flowRef.style.left = left + 'px'
             this.flowRef.style.top = (top + scrollTop) + 'px'
@@ -61,7 +63,7 @@ class PageEditer extends React.Component<any> {
             checkTH = 'right'
             this.flowRef.style.display = 'block'
             console.log('TH2 right')
-            this.flowRef.style.width = '2px'
+            this.flowRef.style.width = '4px'
             this.flowRef.style.height = height + 'px'
             this.flowRef.style.left = left + width + 'px'
             this.flowRef.style.top = (top + scrollTop) + 'px'
@@ -70,7 +72,7 @@ class PageEditer extends React.Component<any> {
             checkTH = 'top'
             this.flowRef.style.display = 'block'
             this.flowRef.style.width = width + 'px'
-            this.flowRef.style.height = '2px'
+            this.flowRef.style.height = '4px'
             this.flowRef.style.left = left + 'px'
             this.flowRef.style.top = (top + scrollTop) + 'px'
         }
@@ -78,7 +80,7 @@ class PageEditer extends React.Component<any> {
             checkTH = 'bottom'
             this.flowRef.style.display = 'block'
             this.flowRef.style.width = width + 'px'
-            this.flowRef.style.height = '2px'
+            this.flowRef.style.height = '4px'
             this.flowRef.style.left = left + 'px'
             this.flowRef.style.top = (top + scrollTop) + height + 'px'
         }
@@ -89,11 +91,20 @@ class PageEditer extends React.Component<any> {
         }
         INTERATION.position = checkTH
     }
-    handleDropCapture = (ev) => {
+    /* 
+        two thing change: 
+            - dropTarget
+            - spice children at where
+    */
+    handleDropCapture =  (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
         let idRoot 
-       
+        let domDrop =  ev.target.closest('[data-element]')
+
+        if (!domDrop) return
+        const dropId = domDrop.getAttribute('data-element')
+        console.log('ev',ev)
         if( INTERATION.categoryDrapStart=== 'DRAG_ELEMENT') {
             const nameDom = ev.dataTransfer.getData("PB-duc");
             const dataObj = JSON.parse(`${nameDom}`)
@@ -104,22 +115,20 @@ class PageEditer extends React.Component<any> {
         else if (INTERATION.categoryDrapStart=== 'MOVE_ELEMENT'){
             const {selected} = workspaceContainer.state
             const containerElement =  storeElement.get(selected[0])
-            idRoot= containerElement.state.id
+          
+            const{ id , parentId}  = containerElement.state ;   
+            if(dropId === parentId) return
+            const containerParent = storeElement.get(parentId)
+            containerParent.setState({children :containerParent.state.children.filter(child => child !== id) },() => {
+                workspaceContainer.setState({selected : [dropId]})
+            })
+            idRoot= id
         }
-        const domDrop = ev.target.closest('[data-element]')
-
-        if (!domDrop) return
-        const dropId = domDrop.getAttribute('data-element')
         const containerDrop = storeElement.get(dropId)
-
         const { children } = containerDrop.state
-
         children.push(idRoot)
+        containerDrop.setState({ children })
 
-
-        containerDrop.setState({ children }, () => {
-
-        })
         INTERATION.reset()
         this.dropEl.style.display = 'none'
         this.flowRef.style.display = 'none'

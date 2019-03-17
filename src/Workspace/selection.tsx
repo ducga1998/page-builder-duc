@@ -1,5 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components';
+import { SubscribeOne } from 'unstated-x';
+import workspaceContainer from '../Container/WorkspaceContainer';
 
 class Selection extends React.Component<any> {
     state = {
@@ -29,7 +31,15 @@ class Selection extends React.Component<any> {
     // componentWillUnmount(){
     // }
     render() {
-        return <$Selection ref={ e => this.selRef = e} />
+        return <SubscribeOne to={workspaceContainer} bind={['selected']}>
+            {
+                () => {
+                    const {selected} = workspaceContainer.state
+                    
+                    return <$Selection ref={ e => this.selRef = e} />
+                }
+            }
+        </SubscribeOne>
     }
 }
 const $Selection = styled.div`
