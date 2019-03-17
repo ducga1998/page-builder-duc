@@ -12,6 +12,7 @@ class Selection extends React.Component<any> {
     updatePosition = async ( ) => {
         const {idSelected} = this.props
         const target = document.querySelector(`[data-element="${idSelected}"]`)
+        if(!target) return
         const { width, height, top, left } = target.getBoundingClientRect()
         const scrollTop = window.scrollY
         Object.assign(this.selRef.style, { width: width + 'px', height: height + 'px', top: top +scrollTop+ 'px', left: left + 'px', display: 'block' })

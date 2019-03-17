@@ -62,17 +62,18 @@ const ListFakeData = styled.div`
 
 `
 const WrapperSideBar = styled.div`
-
+    flex : 2;
 `
 const ListDrapItem = styled.div`
     display :flex;
     flex-direction : row;
 `
 const DrapItem = styled.div`
-    width : auto;
-    height : 50px;
-    
-    background : red;
-    margin: 20px;
+       width: auto;
+    height: 50px;
+    background: gainsboro;
+    /* margin: 20px; */
+    border: 1px solid gray;
+    box-sizing: border-box;
 `
 export default Sidebar

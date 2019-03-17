@@ -4,10 +4,12 @@ class ElementContainer extends BaseContainer {
     
     constructor(state){
         super(state);
-        
     }   
     setState(state, callback){
         return super.setState(state,callback)
+    }
+    static get(id){
+        return storeElement.get(id)
     }
     addItem(idItem ,parentId){
 

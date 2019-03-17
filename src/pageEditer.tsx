@@ -187,10 +187,11 @@ class PageEditer extends React.Component<any> {
         if (!targetDom) return
         const idSelect = targetDom.getAttribute('data-element')
         await workspaceContainer.setState({ selected: [idSelect] })
-
+        window['selected'] = storeElement.get(idSelect)
     }
     render() {
-        return <Provider>
+        return <WrapperPageEditer><Provider>
+           
             <WrapperPage
                 draggable
                 onDragStartCapture={this.handleDrapStart}
@@ -210,10 +211,14 @@ class PageEditer extends React.Component<any> {
                 }}
             </SubscribeOne>
         </Provider>
+        </WrapperPageEditer>
     }
 }
 
 export default PageEditer
+const WrapperPageEditer = styled.div`
+flex : 8;
+`
 const Flow = styled.div`
     position: absolute;
 	box-sizing: border-box;
@@ -234,7 +239,6 @@ const DropOver = styled.div`
 
 const WrapperPage = styled.div`
     width  :100%;
-    height : 900px;
     background :#DFE7EF;
     position : relative;
   

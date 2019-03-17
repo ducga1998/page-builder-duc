@@ -3,14 +3,16 @@ import styled from 'styled-components';
 import enhanceElement from '../../Core/enhanceElement';
 import { AnyNsRecord } from 'dns';
 import { Subscribe } from 'unstated-x';
+import UIInput from '../../Components/UI/UIInput';
+import UIFieldAlgin from '../../Components/UI/UIFieldAlgin';
 interface IText {
     value : string
     elementContainer :any
 }
-class Text extends React.Component<IText> {
+class Text extends React.Component<any> {
     refText :any
     static defaultProps  ={
-        value : 'Text'
+        value : 'value'
     }
     static type = 'Text'
     static InspectorDuc(container){
@@ -18,23 +20,64 @@ class Text extends React.Component<IText> {
             general : <div>
                 <Subscribe to={[container]}>
                     {
-                        () => {
-                            const {value} = container.state
-                            return  <input type="text" value={value} />
+                        (con) => {
+                            const {data : {value}} = container.state
+                            return <> <UIFieldAlgin horizontal><UIInput  value={value} onChange={
+                                (value : string) =>{
+                                    // console.log('target',even)
+                                    con.setState({data : {
+                                        value 
+                                    }})
+                                }
+                            } />
+                             <UIInput type="text" value={value} onChange={
+                                (value : string) =>{
+                                    // console.log('target',even)
+                                    con.setState({data : {
+                                        value 
+                                    }})
+                                }
+                            } />
+                             <UIInput type="text" value={value} onChange={
+                                (value : string) =>{
+                                    // console.log('target',even)
+                                    con.setState({data : {
+                                        value 
+                                    }})
+                                }
+                            } />
+                             <UIInput type="text" value={value} onChange={
+                                (value : string) =>{
+                                    // console.log('target',even)
+                                    con.setState({data : {
+                                        value 
+                                    }})
+                                }
+                            } />
+
+                             <UIInput type="text" value={value} onChange={
+                                (value) =>{
+                                    // console.log('target',even)
+                                    con.setState({data : {
+                                        value 
+                                    }})
+                                }
+                            } />
+                            </UIFieldAlgin>
+                            </>
                         }
                     }
                 </Subscribe>
             </div>
         } 
     }
-    componentDidMount(){
-        console.log('refText',this.refText)
-        // this.refText.innerHTML = this.props.value
+    componentDidUpdate(){
+        this.props.elementContainer.state.domElement.innerHTML = this.props.elementContainer.state.data.value
     }
     onChangeText = (event) => {
         console.log(event.target.innerHTML)
         const value = event.target.innerHTML
-        this.props.elementContainer.setState({value  })
+        this.props.elementContainer.setState({data : {value}  })
     }
     render() {
         console.log('props text', this.props)
@@ -44,8 +87,9 @@ class Text extends React.Component<IText> {
             //  e.preventDefault()
          }}
          onInput={this.onChangeText}
+         
          >
-         {this.props.value}
+         {this.props.elementContainer.state.data.value}
          </$Span>
     }
 }

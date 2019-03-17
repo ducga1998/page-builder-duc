@@ -5,7 +5,7 @@ class WorkspaceContainer extends BaseContainer {
  state = {
      selected : [],
  }
-//  constructor
+
 }
 const workspaceContainer = new WorkspaceContainer({
     selected : []

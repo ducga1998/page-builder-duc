@@ -13,9 +13,11 @@ export default function renderElement(idElement , parentId = '' ) {
     return <Subscribe to={[container]} key={idElement}>
             { 
                 elementContainer => {
+                    // console.log('Element.defaultProps',Element.defaultProps)
                 elementContainer.state.parentId  =parentId
-                const {id , children, data, styles } = elementContainer.state
-                const props = { ...Element.defaultProps, ...{elementContainer}, }
+                // elementContainer.state.data = Element.defaultProps || {}
+                const {id , children, data, styles  } = elementContainer.state
+                const props = {  elementContainer }
                 return <Element {...props} >
                     {children.map((childId: string) => renderElement(childId,idElement))}
                 </Element>
