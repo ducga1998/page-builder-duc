@@ -1,9 +1,14 @@
 import { Container } from 'unstated-x'
 import BaseContainer from './BaseContainer';
 class WorkspaceContainer extends BaseContainer {
+
  state = {
-     seleted : [],
-     
+     selected : [],
  }
+//  constructor
 }
-export default WorkspaceContainer
+const workspaceContainer = new WorkspaceContainer({
+    selected : []
+})
+window['ws' ] = workspaceContainer
+export default workspaceContainer

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components';
+import INTERACTION from '../../reuse/interaction';
 
 const fakeData = [
     [
@@ -16,6 +17,7 @@ class Sidebar extends React.Component {
     handleStartDrap = (ev) => {
         console.log('start', ev)
         const data = ev.target.getAttribute('data-element')
+        INTERACTION.categoryDrapStart = 'DRAG_ELEMENT'
         ev.dataTransfer.setData("PB-duc", data);
     }
     render() {

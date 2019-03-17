@@ -22,6 +22,3 @@ export default class Page extends React.Component<IPage> {
         return renderElement(idBody)
     }
 }
-const $Section = styled.div`
-
-`

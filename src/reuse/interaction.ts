@@ -1,6 +1,7 @@
 class Interation {
     dropTarget = null
     position = ''
+    categoryDrapStart = ''
     reset() {
        setTimeout(() => {
         this.dropTarget = null

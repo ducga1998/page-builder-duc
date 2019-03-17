@@ -2,43 +2,34 @@ import * as React from 'react'
 import styled from 'styled-components';
 import INTERATION from './reuse/interaction'
 import ElementContainer from './Container/ElementContainer';
-import renderElement from './Core/renderElement'
-import ReactDOM from 'react-dom';
 import { Provider } from 'unstated-x';
 import { storeElement } from './Container/BaseContainer';
-console.log(renderElement)
-const fakeData = [
-    { id: 0, type: 'Section', children: [1] },
-    {
-        id: 1, type: 'Button', children: [2], styles: {
-            backgroundColor: 'red'
-        }
-    },
-    { id: 2, type: 'Text', data: { value: 'Button' } }
-]
+import Selection from './Workspace/selection'
+// import WorkspaceContainer from './Container/WorkspaceContainer';
+import workspaceContainer from './Container/WorkspaceContainer';
 function convertDataToContainer(data) {
     const root = data.find(item => item.id === 0)
     const addItem = (rootData) => {
         if (rootData.children) {
             const children = data.filter(childData => rootData.children.filter(idChild => childData.id === idChild).length);
             children.map(child => {
-                const element =  addItem(child)
+                const element = addItem(child)
                 const id = element.state.id
                 rootData.children = []
                 rootData.children.push(id)
             })
-            
+
         }
-        return new ElementContainer({...rootData, id: undefined})
+        return new ElementContainer(rootData)
     }
     return addItem(root)
 
 
 }
-// convertDataToContainer(fakeData)
 class PageEditer extends React.Component<any> {
-    refSel: HTMLElement
+    dropEl: HTMLElement
     flowRef: HTMLElement
+    selRef :any
     // the first drap 
     handleDrapEnterCapture = (ev) => {
     }
@@ -49,11 +40,10 @@ class PageEditer extends React.Component<any> {
         const targetDom = event.target as HTMLElement
 
         const { width, height, top, left } = targetDom.getBoundingClientRect()
-        Object.assign(this.refSel.style, { width: width + 'px', height: height + 'px', top: top + 'px', left: left + 'px', display: 'block' })
+        Object.assign(this.dropEl.style, { width: width + 'px', height: height + 'px', top: top + 'px', left: left + 'px', display: 'block' })
         const nX = event.nativeEvent.offsetX
         const nY = event.nativeEvent.offsetY
         const scrollTop = window.scrollY
-        console.log('nX nY', nX, nY)
         const distance = 7
         let checkTH = ''
         //Th1 : left
@@ -102,69 +92,53 @@ class PageEditer extends React.Component<any> {
     handleDropCapture = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        const nameDom = ev.dataTransfer.getData("PB-duc");
-        const dataObj  = JSON.parse(`${nameDom}`)
-        const rootContainer  = convertDataToContainer(dataObj)
+        let idRoot 
+       
+        if( INTERATION.categoryDrapStart=== 'DRAG_ELEMENT') {
+            const nameDom = ev.dataTransfer.getData("PB-duc");
+            const dataObj = JSON.parse(`${nameDom}`)
+            
+            const containerElement =  convertDataToContainer(dataObj)
+            idRoot = containerElement.state.id
+        }
+        else if (INTERATION.categoryDrapStart=== 'MOVE_ELEMENT'){
+            const {selected} = workspaceContainer.state
+            const containerElement =  storeElement.get(selected[0])
+            idRoot= containerElement.state.id
+        }
         const domDrop = ev.target.closest('[data-element]')
-        console.log('domDrop',domDrop)
-        if(!domDrop) return
-        const dropId  = domDrop.getAttribute('data-element')
-        console.log('dropId',dropId)
-        const containerDrop  = storeElement.get(dropId)
-        
-        const {children}= containerDrop.state
-      
-        children.push(rootContainer.state.id)
-        console.log('children',children)
-        // renderElement(rootContainer.state.id)
-        // renderElement(rootContainer.state.id)
-        console.log('rootContainer',rootContainer)
-        containerDrop.setState({children},() => {
+
+        if (!domDrop) return
+        const dropId = domDrop.getAttribute('data-element')
+        const containerDrop = storeElement.get(dropId)
+
+        const { children } = containerDrop.state
+
+        children.push(idRoot)
+
+
+        containerDrop.setState({ children }, () => {
 
         })
-        // ev.target.appendChild(domrender)
-      
-        return
-        if (!nameDom || nameDom.length === 0) return
-        const dom = document.createElement(nameDom) as HTMLElement
-        dom.innerHTML = nameDom
-        dom.setAttribute('draggable', 'true')
-        dom.setAttribute('data-element', nameDom)
-        const section = document.createElement('section')
-        switch (INTERATION.position) {
-            case 'bottom':
-                ev.target.parentElement.appendChild(dom)
-                break;
-            case 'top':
-                ev.target.parentElement.appendChild(section.appendChild(dom), 'section')
-                break;
-            case 'left':
-                ev.target.before(dom)
-                break;
-            case 'right':
-                ev.target.after(dom)
-                break;
-            default: ev.target.appendChild(dom)
-        }
-        console.dir(ev.target.parentElement)
         INTERATION.reset()
-       
-        // ev.target.appendChild(dom);
-        this.refSel.style.display = 'none'
+        this.dropEl.style.display = 'none'
         this.flowRef.style.display = 'none'
     }
     handleDrapStart = (event) => {
         event.stopPropagation()
-        const data = event.target.getAttribute('data-element')
-        console.log('data ', data)
-        event.dataTransfer.setData("PB-duc", data);
+        console.log('hehehe day la move element ma')
+        INTERATION.categoryDrapStart = 'MOVE_ELEMENT'
     }
     handleMouseDown = (event) => {
-        console.log('event', event.target)
+        const target = event.target as HTMLElement
+        const targetDom = event.target.closest('[data-element]')
+        if(!targetDom )return
+        const idSelect = targetDom.getAttribute('data-element')
+        workspaceContainer.setState({selected : [idSelect]})
+        this.selRef.updatePosition(targetDom)
     }
     render() {
-        return <>
-         <Provider>
+        return <Provider>
             <WrapperPage
                 draggable
                 onDragStartCapture={this.handleDrapStart}
@@ -173,12 +147,12 @@ class PageEditer extends React.Component<any> {
                 onDropCapture={this.handleDropCapture}
                 onMouseDown={this.handleMouseDown}
             >
-            {this.props.children}
+                {this.props.children}
             </WrapperPage>
-            </Provider>
-            <Selection ref={e => this.refSel = e} />
+            <DropOver ref={e => this.dropEl = e} />
             <Flow ref={e => this.flowRef = e} />
-            </>
+            <Selection  ref={e =>this.selRef = e} />
+        </Provider>
     }
 }
 
@@ -186,28 +160,13 @@ export default PageEditer
 const Flow = styled.div`
     position: absolute;
 	box-sizing: border-box;
-    background : blue;
+    background : ${props => props.theme.brand.default};
 	pointer-events: none;
 	/* display: none; */
 	z-index: 10;
-   
-	a {
-		pointer-events: initial;
-		&:hover {
-			color: #fff;
-		}
-	}
-	&:after{
-		position: absolute;
-		top:-2px;
-		right: -2px;
-		bottom: -2px;
-		left: -2px;
-		content: '';
-		border: 2px dashed red;
-	}
 `
-const Selection = styled.div`
+
+const DropOver = styled.div`
 	position: fixed;
 	box-sizing: border-box;
 	border: 2px solid red;

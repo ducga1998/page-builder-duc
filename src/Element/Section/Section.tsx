@@ -13,6 +13,7 @@ class Section extends React.Component {
 }
 const $Section = styled.div`
     padding : 40px;
-    background : red;
+    background : gray;
+    border: 1px dashed ${props => props.theme.bg.default    }
 `
 export default enhanceElement(Section)

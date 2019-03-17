@@ -8,17 +8,17 @@ class BaseContainer extends Container<any> {
     constructor(state){
         super(state);
         let {id , children} = state
-        if(!id){
+        if(!id|| typeof id === 'number'){
             id = uuid()
         }
         if(!children ){
             this.state.children = []
         }
-        // const id  = uuid()
+    // const id  = uuid()
         this.state = {...state , ...{id}}
         storeElement.set(id , this)
     }   
-    setState(state, callback){
+    setState(state, callback?){
        return  super.setState(state, callback)
     }
 }
