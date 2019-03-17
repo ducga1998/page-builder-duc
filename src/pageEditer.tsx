@@ -26,6 +26,38 @@ function convertDataToContainer(data) {
 
 
 }
+//handle work update position 
+function updatePositionElement(idDrop , idRoot){
+    console.log('run function success',INTERATION.position )
+    const elementContainer  = storeElement.get(idRoot)
+    const {parentId} = elementContainer.state
+    const containerDrop = storeElement.get(idDrop)
+    const childrenElementDrop = containerDrop.state.children as any[]
+    if(INTERATION.position ==='inside'){
+        const {children} = containerDrop.state
+        children.push(idRoot)
+        containerDrop.setState({children })
+        return
+    }
+    switch(INTERATION.position){
+        case 'bottom': 
+        childrenElementDrop.push(idRoot)
+        break;
+        case 'top' : 
+        childrenElementDrop.unshift(idRoot)
+        break;
+        case 'left':
+        const indexDropLeft = childrenElementDrop.indexOf(parentId)
+        childrenElementDrop.splice(indexDropLeft , 0 ,  idRoot)
+        break;
+        case 'right':
+        const indexDropRight = childrenElementDrop.indexOf(parentId)
+        childrenElementDrop.splice(indexDropRight + 1 , 0 ,  idRoot)
+        break;
+    }
+    containerDrop.setState({children :childrenElementDrop })
+    INTERATION.reset()
+}
 class PageEditer extends React.Component<any> {
     dropEl: HTMLElement
     flowRef: HTMLElement
@@ -39,9 +71,10 @@ class PageEditer extends React.Component<any> {
     }
     handleDrapOverCapture = (event) => {
         event.preventDefault()
-        const targetDom = event.target as HTMLElement
-
+        const targetDom = event.target.closest('[data-element]')
+        if(!targetDom) return
         const { width, height, top, left } = targetDom.getBoundingClientRect()
+    
         Object.assign(this.dropEl.style, { width: width + 'px', height: height + 'px', top: top + 'px', left: left + 'px', display: 'block' })
         const nX = event.nativeEvent.offsetX
         const nY = event.nativeEvent.offsetY
@@ -87,25 +120,28 @@ class PageEditer extends React.Component<any> {
         if (nX > distance && nX < (width - distance) && nY > distance && nY < (height - distance)) {
             checkTH = 'inside'
             this.flowRef.style.display = 'none'
+            INTERATION.doing = true
 
         }
         INTERATION.position = checkTH
+
     }
     /* 
         two thing change: 
             - dropTarget
             - spice children at where
     */
-    handleDropCapture =  (ev) => {
+    handleDropCapture =  async (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        let idRoot 
+        let idRoot  = ''
         let domDrop =  ev.target.closest('[data-element]')
-
+        console.log('domDrop',domDrop)
         if (!domDrop) return
-        const dropId = domDrop.getAttribute('data-element')
-        console.log('ev',ev)
+        let idDrop = domDrop.getAttribute('data-element')
+        // change idRoot
         if( INTERATION.categoryDrapStart=== 'DRAG_ELEMENT') {
+            // create to data 
             const nameDom = ev.dataTransfer.getData("PB-duc");
             const dataObj = JSON.parse(`${nameDom}`)
             
@@ -113,23 +149,30 @@ class PageEditer extends React.Component<any> {
             idRoot = containerElement.state.id
         }
         else if (INTERATION.categoryDrapStart=== 'MOVE_ELEMENT'){
+            // move element
             const {selected} = workspaceContainer.state
             const containerElement =  storeElement.get(selected[0])
           
             const{ id , parentId}  = containerElement.state ;   
-            if(dropId === parentId) return
+            if(idDrop === parentId && INTERATION.position ==='inside') {
+                console.log('run return : ((')
+                INTERATION.reset()
+                return
+            }
             const containerParent = storeElement.get(parentId)
-            containerParent.setState({children :containerParent.state.children.filter(child => child !== id) },() => {
-                workspaceContainer.setState({selected : [dropId]})
+          await  containerParent.setState({children :containerParent.state.children.filter(child => child !== id) },() => {
+                workspaceContainer.setState({selected : [idDrop]})
             })
             idRoot= id
         }
-        const containerDrop = storeElement.get(dropId)
-        const { children } = containerDrop.state
-        children.push(idRoot)
-        containerDrop.setState({ children })
-
-        INTERATION.reset()
+        
+        if(INTERATION.position !=='inside'){ 
+            const parentDom  = domDrop.parentElement.closest('[data-element]')
+            idDrop = parentDom.getAttribute('data-element')
+        }
+        
+       await  updatePositionElement(idDrop , idRoot)
+       
         this.dropEl.style.display = 'none'
         this.flowRef.style.display = 'none'
     }
@@ -138,12 +181,12 @@ class PageEditer extends React.Component<any> {
         console.log('hehehe day la move element ma')
         INTERATION.categoryDrapStart = 'MOVE_ELEMENT'
     }
-    handleMouseDown = (event) => {
+    handleMouseDown = async (event) => {
         const target = event.target as HTMLElement
         const targetDom = event.target.closest('[data-element]')
         if(!targetDom )return
         const idSelect = targetDom.getAttribute('data-element')
-        workspaceContainer.setState({selected : [idSelect]})
+        await workspaceContainer.setState({selected : [idSelect]})
         this.selRef.updatePosition(targetDom)
     }
     render() {

@@ -13,16 +13,15 @@ class Text extends React.Component<IText> {
     static type = 'Text'
     componentDidMount(){
         console.log('refText',this.refText)
-        this.refText.innerHTML = this.props.value
+        // this.refText.innerHTML = this.props.value
     }
     render() {
         console.log('props text', this.props)
         return <$Span 
          contentEditable
-            ref={e => {
-                console.log('ewfwe',e)
-                this.refText = e
-            }}
+         onMouseDown ={e =>{
+             e.preventDefault()
+         }}
          >
          {this.props.value}
          </$Span>
