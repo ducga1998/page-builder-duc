@@ -17,7 +17,10 @@ export default function renderElement(idElement , parentId = '' ) {
                 elementContainer.state.parentId  =parentId
                 // elementContainer.state.data = Element.defaultProps || {}
                 const {id , children, data, styles  } = elementContainer.state
-                const props = {  elementContainer }
+                const props = {  
+                    elementContainer ,
+                    ref : e => elementContainer.state.instance = e 
+                  }
                 return <Element {...props} >
                     {children.map((childId: string) => renderElement(childId,idElement))}
                 </Element>

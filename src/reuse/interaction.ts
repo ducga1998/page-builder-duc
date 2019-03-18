@@ -3,11 +3,13 @@ class Interation {
     position = ''
     categoryDrapStart = ''
     doing  = false
+    dropDom = null
     reset() {
        setTimeout(() => {
         this.dropTarget = null
         this.position = ''
         this.doing = false
+        this.dropDom = null
        }, 100) 
     }
 }

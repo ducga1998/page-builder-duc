@@ -18,7 +18,6 @@ interface IPage {
 export default class Page extends React.Component<IPage> {
     static type = 'Page'
     render() {
-        console.log('renderElement(idBody)',renderElement(idBody))
         return renderElement(idBody)
     }
 }

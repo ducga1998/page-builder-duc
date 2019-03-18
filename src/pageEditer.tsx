@@ -72,9 +72,13 @@ class PageEditer extends React.Component<any> {
     handleDrapOverCapture = (event) => {
         event.preventDefault()
         const targetDom = event.target.closest('[data-element]')
-        if (!targetDom) return
+        if (!targetDom   ) return
         const { width, height, top, left } = targetDom.getBoundingClientRect()
-
+        const type = targetDom.getAttribute('data-type')
+        const id = targetDom.getAttribute('data-element')
+        const idSelect = workspaceContainer.state.selected[0]
+        if(id === idSelect) return
+        if('Body' === type) return
         Object.assign(this.dropEl.style, { width: width + 'px', height: height + 'px', top: top + 'px', left: left + 'px', display: 'block' })
         const nX = event.nativeEvent.offsetX
         const nY = event.nativeEvent.offsetY
@@ -124,7 +128,7 @@ class PageEditer extends React.Component<any> {
 
         }
         INTERATION.position = checkTH
-
+        INTERATION.dropDom = targetDom
     }
     /* 
         two thing change: 
@@ -135,10 +139,13 @@ class PageEditer extends React.Component<any> {
         ev.preventDefault()
         ev.stopPropagation()
         let idRoot = ''
-        let domDrop = ev.target.closest('[data-element]')
+        const domElement = ev.target.closest('[data-element]')
+        let domDrop = INTERATION.dropDom
         console.log('domDrop', domDrop)
         if (!domDrop) return
         let idDrop = domDrop.getAttribute('data-element')
+        const idElementDrop =domElement.getAttribute('data-element')
+        
         // change idRoot
         if (INTERATION.categoryDrapStart === 'DRAG_ELEMENT') {
             // create to data 
@@ -160,9 +167,12 @@ class PageEditer extends React.Component<any> {
                 return
             }
             const containerParent = storeElement.get(parentId)
-            await containerParent.setState({ children: containerParent.state.children.filter(child => child !== id) }, () => {
-                workspaceContainer.setState({ selected: [idDrop] })
-            })
+            // if(idElementDrop !== idDrop) {
+                await containerParent.setState({ children: containerParent.state.children.filter(child => child !== id) }, () => {
+                    workspaceContainer.setState({ selected: [idDrop] })
+                })
+            // }
+          
             idRoot = id
         }
 

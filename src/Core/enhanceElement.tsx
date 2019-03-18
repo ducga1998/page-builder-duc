@@ -13,9 +13,9 @@ export default function enhanceElement(Element) {
                     'data-element': id,
                     'data-type': type,
                     draggable: Element.type !== 'Text',
-                    ref: e => elementContainer.state.domElement = e,
                     instanceElement: instance,
-                    onChange: elementContainer.setState
+                    onChange: elementContainer.setState,
+                    ref : e => elementContainer.state.domElement = e
                 },
                 ...this.props,
                 ...instance.props

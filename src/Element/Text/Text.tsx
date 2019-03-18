@@ -1,14 +1,9 @@
 import * as React from 'react'
 import styled from 'styled-components';
-import enhanceElement from '../../Core/enhanceElement';
-import { AnyNsRecord } from 'dns';
+import enhanceElement from '../../Core/enhanceElement'
 import { Subscribe } from 'unstated-x';
 import UIInput from '../../Components/UI/UIInput';
 import UIFieldAlgin from '../../Components/UI/UIFieldAlgin';
-interface IText {
-    value : string
-    elementContainer :any
-}
 class Text extends React.Component<any> {
     refText :any
     static defaultProps  ={
@@ -83,6 +78,7 @@ class Text extends React.Component<any> {
         console.log('props text', this.props)
         return <$Span 
          contentEditable
+         suppressContentEditableWarning
          onMouseDown ={e =>{
             //  e.preventDefault()
          }}
@@ -91,9 +87,11 @@ class Text extends React.Component<any> {
          >
          {this.props.elementContainer.state.data.value}
          </$Span>
+      
+         
     }
 }
-const $Span = styled.div`
+const $Span = styled.div<any>`
 
 `
 export default enhanceElement(Text)

@@ -10,13 +10,11 @@ class Inspector extends React.Component {
         return <SubscribeOne to={workspaceContainer} bind={['selected']}>
                 {
                     ws => {
-                        
                         const {selected}= ws.state
                         console.log('selected in workspaceContainer',selected)
                         const ElementContainer = storeElement.get(selected[0])
-                        if(!ElementContainer) return null
+                        if(!ElementContainer) return <div>Not inspector</div>
                         const {type } = ElementContainer.state
-        
                         const InspectorElement = common[type].InspectorDuc
                         console.log('InspectorElement',InspectorElement)
                         return <WrapperSideBar>
@@ -28,6 +26,7 @@ class Inspector extends React.Component {
     }
 }
 const WrapperSideBar = styled.div`
-flex : 3
+flex : 3;
+padding-left : 10px;
 `
 export default Inspector
