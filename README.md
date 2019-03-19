@@ -1,7 +1,8 @@
 <i>Product design by: Nguyen Minh Duc</i>
-# Build page build as reactjs
-# Expected it complete for 2 week
-# Run simple vl : yarn start (it start port 3000, you make sure not run port before run command :) )
+## Demo : https://arcane-coast-50710.herokuapp.com/
+### Build page build as reactjs
+### Expected it complete for 2 week
+### Run simple vl : yarn start (it start port 3000, you make sure not run port before run command :) )
 <ul>
  <li>
   Desin Link : https://www.figma.com/file/g7AFVNhtX8LI5AUSwtSHtnef/Untitled?node-id=1%3<br/>
