@@ -1,28 +1,37 @@
 import * as React from 'react'
-import { SubscribeOne } from 'unstated-x';
+import { SubscribeOne, Subscribe } from 'unstated-x';
 import workspaceContainer from '../../Container/WorkspaceContainer';
 import { storeElement } from '../../Container/BaseContainer';
 import common from '../../Element/common';
 import styled from 'styled-components';
-console.log('workspaceContainer',workspaceContainer)
+import { ContainerContext } from '../../Core/Binding';
+// console.log('workspaceContainer',workspaceContainer)
 class Inspector extends React.Component {
-    render(){
-        return <SubscribeOne to={workspaceContainer} bind={['selected']}>
-                {
-                    ws => {
-                        const {selected}= ws.state
-                        console.log('selected in workspaceContainer',selected)
-                        const ElementContainer = storeElement.get(selected[0])
-                        if(!ElementContainer) return <div>Not inspector</div>
-                        const {type } = ElementContainer.state
-                        const InspectorElement = common[type].InspectorDuc
-                        console.log('InspectorElement',InspectorElement)
-                        return <WrapperSideBar>
-                            {InspectorElement ? InspectorElement(ElementContainer).general : <div>Not inspector</div>}
-                        </WrapperSideBar>
-                    }
+    render() {
+        return <ContainerContext.Consumer>
+            {
+                containerElementSelected => {
+                    if (!containerElementSelected) return
+                    const { type } = containerElementSelected.state
+
+                    const InspectorElement = common[type].InspectorDuc
+                    // console.log('InspectorElement',InspectorElement)
+                    return <Subscribe to={[containerElementSelected]}>
+                        {
+                            (con) => {
+                                return <WrapperSideBar>
+                                    {InspectorElement ?<>
+                                    { InspectorElement.general }
+                                    ---------Style-----------
+                                    { InspectorElement.style?  InspectorElement.style :null }
+                                    </>: <div>Not inspector</div>}
+                                </WrapperSideBar>
+                            }
+                        }
+                    </Subscribe>
                 }
-            </SubscribeOne>
+            }
+        </ContainerContext.Consumer>
     }
 }
 const WrapperSideBar = styled.div`

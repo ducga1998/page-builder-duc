@@ -36,9 +36,9 @@ class Selection extends React.Component<any> {
 const $Selection = styled.div`
     position: absolute;
 	box-sizing: border-box;
-    border :3px dashed green;
+    border :3px dashed ${props => props.theme.brand.default};
 	pointer-events: none;
 	/* display: none; */
-	z-index: 10;
+	z-index: 11;
 `
 export default Selection

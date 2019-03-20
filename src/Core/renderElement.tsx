@@ -13,7 +13,8 @@ export default function renderElement(idElement , parentId = '' ) {
     const Element = common[type]
     console.log('type',type)
     return <StyleContext.Consumer>
-            {sheetStyle => {
+            {
+                sheetStyle => {
                 // console.log('sheetsheetsheet',sheetStyle)
                 return <Subscribe to={[container]} key={idElement}>
                 { 
@@ -24,8 +25,8 @@ export default function renderElement(idElement , parentId = '' ) {
                         console.log('className',className)
                         Object.assign(elementContainer.state ,  {
                             parentId,
-                            className :className?className: `pb-duc-${randomString.split('-')[0]}`,
-                            sheetStyle,
+                            className:className ?className: `pb-duc-${randomString.split('-')[0]}`,
+                            // sheetStyle,
                             // instanceElement : Element
                         }) 
                     

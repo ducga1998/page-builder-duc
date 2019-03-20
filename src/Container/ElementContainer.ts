@@ -20,13 +20,15 @@ class ElementContainer extends BaseContainer {
     setStyle(state) {
         const styles = this.getStyle
        const arrState =  Object.entries(state)[0]
+    //    console.log(arrState)
        styles.style[arrState[0]] = arrState[1]
+       this._listenersStyle.map(item =>item())
     }
-    
+
     get getStyle(){
         // console.log('className',this.state.className)
         const {className} = this.state
-        const instanceStyle  = document.styleSheets[1]  as any
+        const instanceStyle  = document.styleSheets[2]  as any
         const arrInstanceStyle  =  Array.from(instanceStyle.cssRules)
         const rule =arrInstanceStyle.find((rule : any) => rule.selectorText === `.${this.state.className}`  )
     //    console.log('rule',rule , instanceStyle)
@@ -49,18 +51,46 @@ class ElementContainer extends BaseContainer {
             const cssCamelCase = camelCase(css)
             const arr =  css.split(':')
             const methodCss  = camelCase(arr[0])
-            console.log('cssCamelCase',css)
-                cssRule.style[methodCss] = arr[1]
+            cssRule.style[methodCss] = arr[1]
         }
         // this.saveStyle(selector , css)
     }
-    saveStyle(selector , css){
-      if( this._listeners.find((item : any) =>  item.css === css).length){
-        this._listenersStyle.push({selector  , css})
-      }
-       
+    subscribeStyle(func) {
+        this._listenersStyle.push(func)
     }
-    
+    unSubscribeStyle(func) {
+        this._listenersStyle = this._listenersStyle.filter(f => f!==func)
+    }
+    saveStyle(selector , css){
+    }
+    getTemplateData(){
+        const arrContainer = []
+        const dataConvert = []
+        storeElement.forEach(item =>  arrContainer.push(item) )
+        // storeElemen
+        const arrStateElement = arrContainer.filter(con => con.state.type).map(item => item.state)
+        const body  = arrStateElement.find(item  => item.type  === 'Body')
+        const getDataTemplate = (bodyKey , count) => {
+            const parentData =  arrStateElement.find(item => item.id === bodyKey) as any
+            if(parentData.children && parentData.children.length > 0){
+                parentData.id = count
+                // let currentcount = count
+               const childrendat =  parentData.children.map(item => {
+                    const childrenData =  getDataTemplate(item , count + 1)  
+                    // console.log('childrenData',childrenData)
+                    parentData.children = []
+                    parentData.children.push(++count)
+                    // childrenData.id
+                    
+                })
+              
+            }
+            console.log('parentData',parentData , count)
+            return parentData
+        }
+       const dataOLD =  getDataTemplate(body.id , 0 )
+        // console.log('dataOLD',dataOLD)
+    }
     get checkExiesRule(){
         const {sheetStyle} = this.state;
         const check = Array.from(sheetStyle.cssRules).find((item:any) => item.selectorText.includes(this.selector))
@@ -73,3 +103,4 @@ class ElementContainer extends BaseContainer {
 
 }
 export default ElementContainer
+window['ElementContainer'] = ElementContainer

@@ -31,9 +31,9 @@ export default class UITooltip extends React.Component<any> {
             const scrollTop = view.scrollY
             domToolTip.style.display = "inline-block"
             let leftTooltip  =   left  
-            const widthToolTip = domToolTip.getBoundingClientRect().width
-            const heightToolTip = domToolTip.getBoundingClientRect().height
-            let topTooltip = top + scrollTop -  heightToolTip - 5  ;
+            const {width : widthToolTip} = domToolTip.getBoundingClientRect()
+            const {height : heightToolTip} = domToolTip.getBoundingClientRect()
+            let topTooltip = top + scrollTop -  heightToolTip  ;
             // if(top  + heightToolTip > window.innerHeight) {
             //     topTooltip = top  - heightToolTip -10 + 'px'
             //     leftTooltip = left + 'px'
@@ -46,8 +46,11 @@ export default class UITooltip extends React.Component<any> {
             // }
             if( left + widthToolTip  > window.innerWidth ) {
               
-                leftTooltip = left - widthToolTip -25 ;   
+                leftTooltip = left - (widthToolTip/2)  ;   
                 
+            }
+            if(top - heightToolTip <0) {
+                topTooltip  = top  + height 
             }
             // else{
             //     topTooltip =  top + 'px'

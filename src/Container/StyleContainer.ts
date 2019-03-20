@@ -1,5 +1,3 @@
-
-import BaseContainer from './BaseContainer';
 import React from 'react';
 import { Container } from 'unstated-x';
 class StyleContainer extends Container<any> { 
@@ -8,18 +6,22 @@ class StyleContainer extends Container<any> {
         
     }
     getStyle() {
-
+        
     }
 }
-export class SubscribeStyle extends React.Component<{children :any , to  : any}>{
-    componentDidMount(){
-
+export class SubscribeStyle extends React.Component<{children :any , to  : any , bind : string}>{
+    rule = this.props.to.getStyle
+    onUpdate = () => {
+        this.forceUpdate()
     }
-    componentDidUpdate(){
-        this.props.to.state._listenersStyle.push('ok')
+    componentDidMount = () => {
+        this.props.to.subscribeStyle(this.onUpdate)
+    }
+    componentWillUnmount(){
+           this.props.to.unSubscribeStyle(this.onUpdate)
     }
     render(){
-            return this.props.children('a' , 'b')
+        return this.props.children( this.props.to , this.rule )
     }
 }
 

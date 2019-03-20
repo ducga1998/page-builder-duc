@@ -11,6 +11,6 @@ class Body extends React.Component {
 }
 const $Body = styled.div`
 padding : 40px;
-background : blue;
+background : #f5f5f5;
 `
 export default enhanceElement(Body)

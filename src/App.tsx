@@ -11,6 +11,8 @@ import Page from './Element/Page/Page';;
 import Inspector from './Workspace/inspector';
 import styled from 'styled-components';
 import Style from './Element/Style';
+import { ContainerShare } from './Core/Binding';
+import Logo from './Workspace/logo';
 
 class App extends Component {
   componentDidMount(){
@@ -20,10 +22,11 @@ class App extends Component {
     return <UITheme>
       <UITooltip>
         <Provider>
+          <ContainerShare>
+          <Logo />
           <LayoutEditer>
+          
             <Style>
-
-           
             <SideBar />
             <PageEditer >
               <Page />
@@ -31,6 +34,7 @@ class App extends Component {
             <Inspector />
             </Style>
           </LayoutEditer>
+          </ContainerShare>
         </Provider>
       </UITooltip>
     </UITheme>

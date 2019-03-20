@@ -1,94 +1,40 @@
 import * as React from 'react'
 import styled from 'styled-components';
 import enhanceElement from '../../Core/enhanceElement'
-import { Subscribe } from 'unstated-x';
-import UIInput from '../../Components/UI/UIInput';
-import UIFieldAlgin from '../../Components/UI/UIFieldAlgin';
 class Text extends React.Component<any> {
-    refText :any
-    static defaultProps  ={
-        value : 'value'
+    refText: any
+    static defaultProps = {
+        value: 'value'
     }
     static type = 'Text'
-    static InspectorDuc(container){
+    static get InspectorDuc() {
         return {
-            general : <div>
-                <Subscribe to={[container]}>
-                    {
-                        (con) => {
-                            const {data : {value}} = container.state
-                            return <> <UIFieldAlgin horizontal><UIInput  value={value} onChange={
-                                (value : string) =>{
-                                    // console.log('target',even)
-                                    con.setState({data : {
-                                        value 
-                                    }})
-                                }
-                            } />
-                             <UIInput type="text" value={value} onChange={
-                                (value : string) =>{
-                                    // console.log('target',even)
-                                    con.setState({data : {
-                                        value 
-                                    }})
-                                }
-                            } />
-                             <UIInput type="text" value={value} onChange={
-                                (value : string) =>{
-                                    // console.log('target',even)
-                                    con.setState({data : {
-                                        value 
-                                    }})
-                                }
-                            } />
-                             <UIInput type="text" value={value} onChange={
-                                (value : string) =>{
-                                    // console.log('target',even)
-                                    con.setState({data : {
-                                        value 
-                                    }})
-                                }
-                            } />
-
-                             <UIInput type="text" value={value} onChange={
-                                (value) =>{
-                                    // console.log('target',even)
-                                    con.setState({data : {
-                                        value 
-                                    }})
-                                }
-                            } />
-                            </UIFieldAlgin>
-                            </>
-                        }
-                    }
-                </Subscribe>
-            </div>
-        } 
+            general: {
+            }
+        }
     }
-    componentDidUpdate(){
+    componentDidUpdate() {
         this.props.elementContainer.state.domElement.innerHTML = this.props.elementContainer.state.data.value
     }
     onChangeText = (event) => {
         console.log(event.target.innerHTML)
         const value = event.target.innerHTML
-        this.props.elementContainer.setState({data : {value}  })
+        this.props.elementContainer.setState({ data: { value } })
     }
     render() {
-        console.log('props text', this.props)
-        return <$Span 
-         contentEditable
-         suppressContentEditableWarning
-         onMouseDown ={e =>{
-            //  e.preventDefault()
-         }}
-         onInput={this.onChangeText}
-         
-         >
-         {this.props.elementContainer.state.data.value}
-         </$Span>
-      
-         
+        return <$Span
+            contentEditable
+            suppressContentEditableWarning
+            onMouseDown={e => {
+                //  e.preventDefault()
+            }}
+            onInput={this.onChangeText}
+
+        >
+            {this.props.elementContainer.state.data.value}
+        </$Span>
+
+
     }
 }
 const $Span = styled.div<any>`

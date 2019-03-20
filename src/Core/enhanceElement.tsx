@@ -1,7 +1,6 @@
 
 // it' s will wrap all element 
 import * as React from 'react'
-import uuid from 'uuid'
 export default function enhanceElement(Element) {
     return class extends Element {
         render() {
