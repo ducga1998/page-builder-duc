@@ -2,6 +2,7 @@ import * as React from 'react'
 import enhanceElement from '../../Core/enhanceElement';
 import { StyledOutlineButton } from '../../Components/styled/button';
 import { Subscribe } from 'unstated-x';
+import { SubscribeStyle } from '../../Container/StyleContainer';
 class Button extends React.Component {
     static type = 'Button'
     static InspectorDuc(container){
@@ -19,6 +20,15 @@ class Button extends React.Component {
                         }
                     }
                 </Subscribe>
+                {/* <SubscribeStyle to={[container]}>
+                    {(container ,  css) => {
+                        return   <input type="text"  onChange={
+                            ({value} : any) =>{
+                                container.setStyle({value})
+                            }
+                        } />
+                    }}
+                </SubscribeStyle> */}
             </div>
         } 
     }

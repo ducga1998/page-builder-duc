@@ -137,7 +137,7 @@ class PageEditer extends React.Component<any> {
     */
     handleDropCapture = async (ev) => {
         ev.preventDefault()
-        ev.stopPropagation()
+        // ev.stopPropagation()
         let idRoot = ''
         const domElement = ev.target.closest('[data-element]')
         let domDrop = INTERATION.dropDom
@@ -205,9 +205,9 @@ class PageEditer extends React.Component<any> {
             <WrapperPage
                 draggable
                 onDragStartCapture={this.handleDrapStart}
-                onDragOverCapture={this.handleDrapOverCapture}
+                onDragOver={this.handleDrapOverCapture}
                 onDragLeaveCapture={this.handleDrapLeaveCapture}
-                onDropCapture={this.handleDropCapture}
+                onDrop={this.handleDropCapture}
                 onMouseDown={this.handleMouseDown}
             >
                 {this.props.children}

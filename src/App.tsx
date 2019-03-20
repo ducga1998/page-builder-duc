@@ -10,18 +10,26 @@ import Page from './Element/Page/Page';;
 
 import Inspector from './Workspace/inspector';
 import styled from 'styled-components';
-// import ElementContainer from 'e'
+import Style from './Element/Style';
+
 class App extends Component {
+  componentDidMount(){
+    
+  }
   render() {
     return <UITheme>
       <UITooltip>
         <Provider>
           <LayoutEditer>
+            <Style>
+
+           
             <SideBar />
             <PageEditer >
               <Page />
             </PageEditer>
             <Inspector />
+            </Style>
           </LayoutEditer>
         </Provider>
       </UITooltip>

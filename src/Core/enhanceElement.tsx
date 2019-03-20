@@ -1,21 +1,24 @@
 
 // it' s will wrap all element 
 import * as React from 'react'
+import uuid from 'uuid'
 export default function enhanceElement(Element) {
     return class extends Element {
         render() {
-            const { elementContainer } = this.props
+            const { elementContainer , elementContainer : {state : { id, type, data ,className }} } = this.props
             const instance = super.render()
-            const { id, type, data } = elementContainer.state
-
+            elementContainer.state.componentStyle  =  instance.type.componentStyle
+            // console.log('instance classnmae',)
             const props = {
                 ...{
                     'data-element': id,
                     'data-type': type,
+                    className,
                     draggable: Element.type !== 'Text',
-                    instanceElement: instance,
+                    // instanceElement: instance,
                     onChange: elementContainer.setState,
-                    ref : e => elementContainer.state.domElement = e
+                    ref : e => elementContainer.state.domElement = e,
+                    
                 },
                 ...this.props,
                 ...instance.props

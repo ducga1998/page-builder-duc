@@ -1,7 +1,9 @@
 import { Subscribe, Provider } from "unstated-x";
 import { storeElement } from "../Container/BaseContainer";
 import common from "../Element/common";
+import uuid from 'uuid'
 import * as React from "react";
+import { StyleContext } from "../Element/Style";
 
 // when element 
 export default function renderElement(idElement , parentId = '' ) {
@@ -10,24 +12,38 @@ export default function renderElement(idElement , parentId = '' ) {
     const { type } = container.state
     const Element = common[type]
     console.log('type',type)
-    return <Subscribe to={[container]} key={idElement}>
-            { 
-                elementContainer => {
-                    // console.log('Element.defaultProps',Element.defaultProps)
-                elementContainer.state.parentId  =parentId
-                // elementContainer.state.data = Element.defaultProps || {}
-                const {id , children, data, styles  } = elementContainer.state
-                const props = {  
-                    elementContainer ,
-                    ref : e => elementContainer.state.instance = e 
-                  }
-                return <Element {...props} >
-                    {children.map((childId: string) => renderElement(childId,idElement))}
-                </Element>
-             
-
+    return <StyleContext.Consumer>
+            {sheetStyle => {
+                // console.log('sheetsheetsheet',sheetStyle)
+                return <Subscribe to={[container]} key={idElement}>
+                { 
+                    elementContainer => {
+                    const randomString  = uuid()
+                        // console.log('Element.defaultProps',Element.defaultProps)
+                        const {className} = elementContainer.state
+                        console.log('className',className)
+                        Object.assign(elementContainer.state ,  {
+                            parentId,
+                            className :className?className: `pb-duc-${randomString.split('-')[0]}`,
+                            sheetStyle,
+                            // instanceElement : Element
+                        }) 
+                    
+                    elementContainer.state.data = Element.defaultProps || {}
+                    const {id , children, data, styles  } = elementContainer.state
+                    const props = {  
+                        elementContainer ,
+                        ref : e => elementContainer.state.instance = e ,
+                      }
+                    return <Element {...props} >
+                        {children.map((childId: string) => renderElement(childId,idElement))}
+                    </Element>
+                 
+    
+                }}
+            </Subscribe>
             }}
-        </Subscribe>
+        </StyleContext.Consumer>
     
 }
 

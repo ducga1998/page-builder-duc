@@ -10,5 +10,5 @@ class WorkspaceContainer extends BaseContainer {
 const workspaceContainer = new WorkspaceContainer({
     selected : []
 })
-window['ws' ] = workspaceContainer
+window['ws'] = workspaceContainer
 export default workspaceContainer
