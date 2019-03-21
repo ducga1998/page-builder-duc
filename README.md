@@ -15,7 +15,7 @@
  </li>
  
 </ul>
-If you see it awesome then star and follow me else it bullshit here in project then let create issues for me, thanks youuuuuuu for watchingggggg repoooo meeeeeeeeeeeeee =)))))
+<i>If you see it awesome then star and follow me else it bullshit here in project then let create issues for me, thanks youuuuuuu for watchingggggg repoooo meeeeeeeeeeeeee =)))))</i>
 ## Version 
 ### 1.00  
 <ul>
