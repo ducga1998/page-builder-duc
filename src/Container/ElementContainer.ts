@@ -1,6 +1,7 @@
 import BaseContainer, { storeElement } from './BaseContainer';
 import {camelCase} from 'lodash'
 import StyleContainer from './StyleContainer';
+import workspaceContainer from './WorkspaceContainer';
 class ElementContainer extends BaseContainer {
     instanceStyle  = null
     styles   = null
@@ -91,7 +92,9 @@ class ElementContainer extends BaseContainer {
         // console.log('dataOLD',dataOLD)
     }
     deleteElement(){
-        
+       const parentContainer =  storeElement.get(this.state.parentId)
+       parentContainer.setState({children : parentContainer.state.children.filter(idChildren => idChildren !== this.state.id)})
+        workspaceContainer.setState({selected : [parentContainer.state.id]})
     }
     get checkExiesRule(){
         const {sheetStyle} = this.state;

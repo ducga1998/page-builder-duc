@@ -1,17 +1,20 @@
 
 import * as React from "react";
-import { Label, H2, FlexCol } from "../styled/base";
+import { Label, H2, FlexCol , FlexRow } from "../styled/base";
 interface IUIField {
-    label: string,
-    children: any
+    label?: string,
+    children: any,
+    vectical? :boolean,
+    horizontal?:boolean
 }
 export default class UIField extends React.Component<IUIField> {
     render() {
+        const WrapperFlied  = this.props.vectical ? FlexRow:FlexCol  as any
         const { label, children } = this.props
-        return <FlexCol>
-                <Label>{label}</Label>
-                {children}
-            </FlexCol>
+        return <WrapperFlied>
+               {label?<Label>{label}: </Label>:null} 
+                    {children}
+            </WrapperFlied>
         
     }
 }

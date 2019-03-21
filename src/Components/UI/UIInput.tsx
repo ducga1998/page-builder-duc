@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 
 interface IUIInput {
-    onChange: (e: any) => any,
+    onChange: any
     value?: string | number,
     size?: 'xs' | 'ls' | 'sm',
     style?: any,
@@ -19,24 +19,43 @@ interface IUIInput {
 }
 export default class UIInput extends React.Component<IUIInput> {
     inputRef: any = React.createRef()
-    componentDidUpdate() {
-
+    state = {
+        isFocusing : false
     }
-    
+    componentDidMount() {
+        this.inputRef.value = this.props.value || ''
+    }
+    componentDidUpdate(prevProps){
+        const value = this.props.value as string
+        console.log('value',value , prevProps.value)
+		// const maxLength = this.props.maxLength
+		if (value !== prevProps.value) {
+            console.log('value',value  || '')
+				this.inputRef.value = (value || '')
+		}
+    }
+
+    handleOnChange = (e) => {
+        console.log('this.inputRef.value',this.inputRef.value)
+        // this.inputRef.value =  this.props.value
+         this.props.onChange(e.target.value)
+    }
+    handleOnFocus = (callback) => {
+        // this.setState({isFocusing : true})
+        this.props.onFocus(callback)
+    }
     render() {
         const { value, onChange, style, placeholder, type, refInput, onKeyPress, onFocus, autoFocus } = this.props
+        console.log('valuevalue',value)
         return <$Input
+            ref={e => this.inputRef = e}
             type={type || undefined}
             autoFocus={autoFocus || undefined}
             onKeyPress={onKeyPress}
-            ref={refInput}
             placeholder={placeholder || undefined}
             style={style}
-            onChange={e => {
-                onChange(e.target.value)
-            }}
+            onChange={this.handleOnChange}
             onFocus={onFocus}
-            value={value}
         />
     }
 }

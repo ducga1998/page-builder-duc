@@ -1,6 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components';
 import enhanceElement from '../../Core/enhanceElement'
+import UIField from '../../Components/UI/UIField';
+import { ControlInput } from '../../Core/Binding';
 class Text extends React.Component<any> {
     refText: any
     static defaultProps = {
@@ -9,7 +11,10 @@ class Text extends React.Component<any> {
     static type = 'Text'
     static get InspectorDuc() {
         return {
-            general: <div></div>
+            general: <UIField>
+                <ControlInput bind="data.value" />
+                {/* <ControlInput bind="data.categoryButton" /> */}
+            </UIField>
         }
     }
     componentDidUpdate() {

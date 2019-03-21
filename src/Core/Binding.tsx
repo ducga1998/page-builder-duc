@@ -1,8 +1,9 @@
-import {  SubscribeOne } from "unstated-x";
+import {  SubscribeOne, Subscribe } from "unstated-x";
 import { storeElement } from "../Container/BaseContainer";
 import * as React from "react";
 import workspaceContainer from "../Container/WorkspaceContainer";
 import UIInput from "../Components/UI/UIInput";
+import { SubscribeStyle } from "../Container/StyleContainer";
 export const ContainerContext = React.createContext(null) as any
 // it's use to share container => it 's render and use file app.tsx 
 export function ContainerShare({children}) {
@@ -21,25 +22,40 @@ export function ContainerShare({children}) {
 }
 // function use improve scalalbe for project 
 export default function BindControl(UI) { 
-    return  ({bind} : {bind : string}) => {
+    return  ({bind} : any) => {
         const [key , value ] = bind.split('.')
         return <ContainerContext.Consumer>
             {
                 container => {
-                    
-                    return <UI onChange={valueUI => {
-                        if(key === 'style'){
-                            container.setStyle({[value] : valueUI})
-                        }
-                        else if(key === 'data') {
-                            container.setState({[value] : valueUI})
-                        }
-                    }} />
+                    const {domElement , id} = container.state
+                    if(key === 'style'){
+                        return <SubscribeStyle to={container} bind={''} key={id}>
+                            {
+                                (con , styleCom)=> {
+                                    return <UI onChange={valueUI => {
+                                            container.setStyle({[value] : valueUI})
+                                        
+                                    }}  
+                                    placeholder={getComputedStyle(domElement)[value]} 
+                                    value={styleCom.style[value]} 
+                                    />
+                                }
+                            }
+                        </SubscribeStyle>
+                    }
+                    else if(key === 'data'){
+                        return <UI onChange={valueUI => {
+                                        container.setState({[value] : valueUI})
+                                }}  
+                                value={container.state.data[value]} 
+                                />
+                          BindControl
+                    } 
                 }
             }
             </ContainerContext.Consumer>
     }
     
 }
-export const ControlInputStyle = BindControl(UIInput)
+export const ControlInput = (UIInput)
 // set style complete => save it and update it

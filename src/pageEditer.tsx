@@ -82,6 +82,7 @@ class PageEditer extends React.Component<any> {
         const idSelect = workspaceContainer.state.selected[0]
         if (id === idSelect && INTERATION.categoryDrapStart === 'MOVE_ELEMENT') return
         if ('Body' === type) return
+        if(INTERATION.typeElement === type ) return
         Object.assign(this.dropEl.style, { width: width + 'px', height: height + 'px', top: top + 'px', left: left + 'px', display: 'block' })
         const nX = event.nativeEvent.offsetX
         const nY = event.nativeEvent.offsetY
@@ -197,7 +198,7 @@ class PageEditer extends React.Component<any> {
         if (!targetDom) return
         const idSelect = targetDom.getAttribute('data-element')
         await workspaceContainer.setState({ selected: [idSelect] })
-        window['selected'] = storeElement.get(idSelect)
+       
     }
     render() {
         return <WrapperPageEditer>

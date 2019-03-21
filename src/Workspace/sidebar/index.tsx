@@ -42,13 +42,42 @@ const fakeData = [
         Column : [
             {id : 0 , type : 'Column'}
         ]
+    },
+    {
+        'Nav : ))' : [
+            {id : 0, type : 'Nav', children : [1]}, 
+            {id : 1 , type : 'Ul' , children: [2,3,4]},
+            {id : 2 , type : 'Li' , children: [5]},
+            {id : 3 , type : 'Li' , children: [6]},
+            {id : 4 , type : 'Li' , children: [7]},
+            {id : 5 , type : 'Text' ,data: {
+                value : 'Link 1'
+            } },
+            {id : 6 , type : 'Text' ,data: {
+                value : 'Link 2'
+            } },
+            {id : 7 , type : 'Text' ,data: {
+                value : 'Link 3'
+            } },
+            
+        
+        ]
     }
 ]
 class Sidebar extends React.Component {
     handleStartDrap = (ev) => {
-        const data = ev.target.getAttribute('data-element')
+        const dataAttrString = ev.target.getAttribute('data-element')
         INTERACTION.categoryDrapStart = 'DRAG_ELEMENT'
-        ev.dataTransfer.setData("PB-duc", data);
+        const arrDataConvert =JSON.parse(dataAttrString)
+        if(Array.isArray(arrDataConvert) && arrDataConvert.length > 0){
+                const root =  arrDataConvert.find(item => item.id === 0) as any
+                console.log('root',root)
+                INTERACTION.typeElement = root.type
+        }
+        else {
+            throw "Error data drap start, please check data in file index in folder sidebar"
+        }
+        ev.dataTransfer.setData("PB-duc", dataAttrString);
     }
     render() {
         return <WrapperSideBar>
