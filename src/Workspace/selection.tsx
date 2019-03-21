@@ -10,17 +10,19 @@ class Selection extends React.Component<any> {
     }
     selRef :HTMLElement
     observeTarget
-	wrapperRef:HTMLElement
+    wrapperRef:HTMLElement
+    overRef : HTMLElement
     updatePosition = async ( ) => {
         const {idSelected} = this.props
         const target = document.querySelector(`[data-element="${idSelected}"]`)
         if(!target) return
+        const type = target.getAttribute('data-type')
+        this.overRef.innerHTML = type
         const { width, height, top, left } = target.getBoundingClientRect()
         const scrollTop = window.scrollY
         Object.assign(this.selRef.style, { width: width + 'px', height: height + 'px', top: top +scrollTop+ 'px', left: left + 'px', display: 'block' })
     }
     componentDidUpdate(){
-       console.log('update')
        this.updatePosition()
     }
     render() {
@@ -29,12 +31,24 @@ class Selection extends React.Component<any> {
                 () => {
                     const {selected} = workspaceContainer.state
                     
-                    return <$Selection ref={ e => this.selRef = e}  />
+                    return <$Selection ref={ e => this.selRef = e} >
+                    <OverMini ref ={ e => this.overRef= e}></OverMini>
+                    </$Selection>
                 }
             }
         </SubscribeOne>
     }
 }
+const OverMini = styled.div`
+    background : black;
+    color : white;
+    display : inline-block;
+    padding :2px;
+    font-size : 12px;
+    border-radius : 4px;
+    position: relative;
+    top: -30px;
+`
 const $Selection = styled.div`
     position: absolute;
 	box-sizing: border-box;

@@ -15,9 +15,6 @@ import { ContainerShare } from './Core/Binding';
 import Logo from './Workspace/logo';
 
 class App extends Component {
-  componentDidMount(){
-    
-  }
   render() {
     return <UITheme>
       <UITooltip>
@@ -25,7 +22,6 @@ class App extends Component {
           <ContainerShare>
           <Logo />
           <LayoutEditer>
-          
             <Style>
             <SideBar />
             <PageEditer >

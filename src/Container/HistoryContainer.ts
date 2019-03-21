@@ -7,9 +7,8 @@ class HistoryContainer extends BaseContainer {
     redo  = []
     constructor(state){
         super(state);
-
     } 
-
+    
     setState(state, callback){
        return  super.setState(state, callback)
     }

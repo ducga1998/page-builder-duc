@@ -10,8 +10,6 @@ class Style extends React.Component<any> {
         const sheets =  Array.from(instance).find(sheet => sheet.ownerNode === this.refStyle);
         console.log('sheets',sheets)
         this.setState({sheets})
-        // in temp1 is sheets
-        // Array.from(temp1.cssRules).filter(item => item.selectorText.includes('p'))
     }   
     render() {
         return <>

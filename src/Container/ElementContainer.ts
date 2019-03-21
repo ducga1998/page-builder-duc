@@ -1,5 +1,4 @@
 import BaseContainer, { storeElement } from './BaseContainer';
-import {SubscribeOne , Container } from 'unstated-x'
 import {camelCase} from 'lodash'
 import StyleContainer from './StyleContainer';
 class ElementContainer extends BaseContainer {
@@ -24,7 +23,6 @@ class ElementContainer extends BaseContainer {
        styles.style[arrState[0]] = arrState[1]
        this._listenersStyle.map(item =>item())
     }
-    addItem(){}
     get getStyle(){
         // console.log('className',this.state.className)
         const {className} = this.state
@@ -63,6 +61,7 @@ class ElementContainer extends BaseContainer {
     }
     saveStyle(selector , css){
     }
+
     getTemplateData(){
         const arrContainer = []
         const dataConvert = []
@@ -90,6 +89,9 @@ class ElementContainer extends BaseContainer {
         }
        const dataOLD =  getDataTemplate(body.id , 0 )
         // console.log('dataOLD',dataOLD)
+    }
+    deleteElement(){
+        
     }
     get checkExiesRule(){
         const {sheetStyle} = this.state;

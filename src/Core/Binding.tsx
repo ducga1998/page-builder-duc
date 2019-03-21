@@ -13,8 +13,8 @@ export function ContainerShare({children}) {
                 const elementContainer = storeElement.get(id)
                 console.log('update ws ===> selected ' , id)
                 return <ContainerContext.Provider value={elementContainer} >
-                    {children}
-             </ContainerContext.Provider>
+                        {children}
+                </ContainerContext.Provider>
             }
         }
     </SubscribeOne>

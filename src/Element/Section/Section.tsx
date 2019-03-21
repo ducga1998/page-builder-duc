@@ -49,6 +49,7 @@ class Section extends React.Component {
     render() {
         console.log('section children', this.props.children)
         return <$Section>
+        
             {this.props.children}
         </$Section>
     }

@@ -1,6 +1,5 @@
 
 import * as React from "react";
-import UIInput from "./UIInput";
 import { Label, H2, FlexCol } from "../styled/base";
 interface IUIField {
     label: string,

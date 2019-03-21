@@ -5,8 +5,13 @@ import INTERACTION from '../../reuse/interaction';
 const fakeData = [
     {
         "Section": [
-            { id: 0, type: 'Section' , children : [1 , 2] },
-            { id: 1, type: 'Section' },
+            { id: 0, type: 'Section' , children : [1] },
+            { id: 1, type: 'Section' , children : [2,3,4,5,6] },
+            { id: 2, type: 'Button' },
+            { id: 3, type: 'Button' },
+            { id: 4, type: 'Button' },
+            { id: 5, type: 'Button', },
+            { id: 6, type: 'Button' },
         ],
     },
     {
@@ -24,7 +29,12 @@ const fakeData = [
     },
     {
         'Row =)))))))))' : [
-            {id : 0 , type : 'Row' },
+            {id : 0 , type : 'Row' , children : [1,2,3,4] },
+            {id : 1 , type : 'Column'},
+            {id : 2 , type : 'Column'},
+            {id : 3 , type : 'Column'},
+            {id : 4 , type : 'Column'}
+            
          
         ]
     },
@@ -36,7 +46,6 @@ const fakeData = [
 ]
 class Sidebar extends React.Component {
     handleStartDrap = (ev) => {
-        console.log('start', ev)
         const data = ev.target.getAttribute('data-element')
         INTERACTION.categoryDrapStart = 'DRAG_ELEMENT'
         ev.dataTransfer.setData("PB-duc", data);

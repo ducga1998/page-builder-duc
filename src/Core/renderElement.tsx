@@ -6,45 +6,43 @@ import * as React from "react";
 import { StyleContext } from "../Element/Style";
 
 // when element 
-export default function renderElement(idElement , parentId = '' ) {
+export default function renderElement(idElement, parentId = '') {
     const container = storeElement.get(idElement)
-    if(!container) return null
+    if (!container) return null
     const { type } = container.state
     const Element = common[type]
-    console.log('type',type)
+    console.log('type', type)
     return <StyleContext.Consumer>
-            {
-                sheetStyle => {
+        {
+            sheetStyle => {
                 // console.log('sheetsheetsheet',sheetStyle)
                 return <Subscribe to={[container]} key={idElement}>
-                { 
-                    elementContainer => {
-                    const randomString  = uuid()
-                    const {id , children, data, styles  } = elementContainer.state
-                        const {className} = elementContainer.state
-                        Object.assign(elementContainer.state ,  {
-                            parentId,
-                            className:className ?className: `pb-duc-${randomString.split('-')[0]}`,
-                            // sheetStyle,
-                            // instanceElement : Element
-                        }) 
-                    
-                    elementContainer.state.data = {...Element.defaultProps , ...data} || {}
-            
-                    const props = {  
-                        elementContainer ,
-                        ref : e => elementContainer.state.instance = e ,
-                      }
-                    return <Element {...props} key={id} >
-                        {children.map((childId: string) => renderElement(childId,idElement))}
-                    </Element>
-                 
-    
-                }}
-            </Subscribe>
+                    {
+                        elementContainer => {
+                            const randomString = uuid()
+                            const { id, children, data, styles } = elementContainer.state
+                            const { className } = elementContainer.state
+                            Object.assign(elementContainer.state, {
+                                parentId,
+                                className: className ? className : `pb-duc-${randomString.split('-')[0]}`,
+                            })
+
+                            elementContainer.state.data = { ...Element.defaultProps, ...data } || {}
+
+                            const props = {
+                                elementContainer,
+                                ref: e => elementContainer.state.instance = e,
+                            }
+                            return <Element {...props} key={id} >
+                                {children.map((childId: string) => renderElement(childId, idElement))}
+                            </Element>
+
+
+                        }}
+                </Subscribe>
             }}
-        </StyleContext.Consumer>
-    
+    </StyleContext.Consumer>
+
 }
 
 window['renderTest'] = renderElement
