@@ -7,9 +7,13 @@ import { ControlInputStyle, ContainerContext } from '../../Core/Binding';
 import { SubscribeStyle } from '../../Container/StyleContainer';
 import UIInput from '../../Components/UI/UIInput';
 import UIField from '../../Components/UI/UIField';
+import styled from 'styled-components';
 
-class Button extends React.Component {
+class Button extends React.Component<any> {
     static type = 'Button'
+    static defaultProps = {
+        categoryButton : 'primary'
+    }
     static get InspectorDuc() {
         return {
             general: <ContainerContext.Consumer>
@@ -18,9 +22,6 @@ class Button extends React.Component {
 
                         const { value, id } = container.state
                         return <>
-                            {/* <ControlInputStyle bind="style.background" />
-                                    <ControlInputStyle bind="style.padding" /> */}
-
                             <SubscribeStyle to={container} bind={'background'} key={id}>
                                 {
                                     (containerStyle, rule) => {
@@ -52,8 +53,10 @@ class Button extends React.Component {
         }
     }
     render() {
-        return <StyledOutlineButton>{this.props.children} </StyledOutlineButton>
+        return <$Button className={`btn btn-outline-${this.props.categoryButton}`}>{this.props.children} </$Button>
     }
 }
+const $Button = styled.button`
 
+`
 export default enhanceElement(Button)

@@ -3,26 +3,36 @@ import styled from 'styled-components';
 import INTERACTION from '../../reuse/interaction';
 
 const fakeData = [
-    [
-        { id: 0, type: 'Section', children: [1] },
-        {
-            id: 1, type: 'Button', children: [2], styles: {
-                backgroundColor: 'red'
+    {
+        "Section": [
+            { id: 0, type: 'Section' , children : [1 , 2] },
+            { id: 1, type: 'Section' },
+        ],
+    },
+    {
+        'Button': [
+            { id: 0, type: 'Button', children: [1] },
+            {
+                id: 1, type: 'Text', tyles: {
+                    backgroundColor: 'red'
+                },
+                data: {
+                    value: 'ok'
+                }
             }
-        },
-        { id: 2, type: 'Text', data: { value: 'Button' } }
-    ],
-    [
-        { id: 0, type: 'Button', children: [1] } , 
-        {
-            id : 1 , type : 'Text' ,tyles: {
-                backgroundColor: 'red'
-            },
-            data : {
-                value : 'ok'
-            }
-        }
-    ]
+        ]
+    },
+    {
+        'Row =)))))))))' : [
+            {id : 0 , type : 'Row' },
+         
+        ]
+    },
+    {
+        Column : [
+            {id : 0 , type : 'Column'}
+        ]
+    }
 ]
 class Sidebar extends React.Component {
     handleStartDrap = (ev) => {
@@ -35,13 +45,16 @@ class Sidebar extends React.Component {
         return <WrapperSideBar>
             <ListFakeData>
                 {
-                    fakeData.map(item  => {
-                        const dataString = JSON.stringify(item)
-                        return <DrapItem 
-                        data-element={dataString} 
-                        draggable 
-                        onDragStartCapture={this.handleStartDrap}
-                        />
+                    fakeData.map(item => {
+                        const name = Object.keys(item)[0]
+                        const dataString = JSON.stringify(item[name])
+                        return <DrapItem
+                            data-element={dataString}
+                            draggable
+                            onDragStartCapture={this.handleStartDrap}
+                        >
+                        {name}
+                        </DrapItem>
                     })
                 }
             </ListFakeData>
@@ -53,17 +66,22 @@ const ListFakeData = styled.div`
 `
 const WrapperSideBar = styled.div`
     flex : 2;
+    margin-right : 3px;
 `
 const ListDrapItem = styled.div`
     display :flex;
     flex-direction : row;
 `
 const DrapItem = styled.div`
-       width: auto;
+    width: auto;
     height: 50px;
-    background: gainsboro;
-    /* margin: 20px; */
-    border: 1px solid gray;
+    background: #EFEFED;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    color : #4401cc;
+    font-stretch: 900;
+    border: 1px solid gainsboro;
     box-sizing: border-box;
 `
 export default Sidebar

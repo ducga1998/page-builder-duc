@@ -24,7 +24,7 @@ class ElementContainer extends BaseContainer {
        styles.style[arrState[0]] = arrState[1]
        this._listenersStyle.map(item =>item())
     }
-
+    addItem(){}
     get getStyle(){
         // console.log('className',this.state.className)
         const {className} = this.state

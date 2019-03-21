@@ -6,7 +6,7 @@ interface IUIField {
     label: string,
     children: any
 }
-export default class UIField extends React.Component<IUIField, any> {
+export default class UIField extends React.Component<IUIField> {
     render() {
         const { label, children } = this.props
         return <FlexCol>

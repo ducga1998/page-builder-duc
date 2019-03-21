@@ -20,9 +20,8 @@ export default function renderElement(idElement , parentId = '' ) {
                 { 
                     elementContainer => {
                     const randomString  = uuid()
-                        // console.log('Element.defaultProps',Element.defaultProps)
+                    const {id , children, data, styles  } = elementContainer.state
                         const {className} = elementContainer.state
-                        console.log('className',className)
                         Object.assign(elementContainer.state ,  {
                             parentId,
                             className:className ?className: `pb-duc-${randomString.split('-')[0]}`,
@@ -30,13 +29,13 @@ export default function renderElement(idElement , parentId = '' ) {
                             // instanceElement : Element
                         }) 
                     
-                    elementContainer.state.data = Element.defaultProps || {}
-                    const {id , children, data, styles  } = elementContainer.state
+                    elementContainer.state.data = {...Element.defaultProps , ...data} || {}
+            
                     const props = {  
                         elementContainer ,
                         ref : e => elementContainer.state.instance = e ,
                       }
-                    return <Element {...props} >
+                    return <Element {...props} key={id} >
                         {children.map((childId: string) => renderElement(childId,idElement))}
                     </Element>
                  

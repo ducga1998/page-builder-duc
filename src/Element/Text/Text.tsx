@@ -9,8 +9,7 @@ class Text extends React.Component<any> {
     static type = 'Text'
     static get InspectorDuc() {
         return {
-            general: {
-            }
+            general: <div></div>
         }
     }
     componentDidUpdate() {

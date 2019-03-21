@@ -7,14 +7,6 @@ import { SketchPicker } from 'react-color';
 import { SubscribeStyle } from '../../Container/StyleContainer';
 import UIInput from '../../Components/UI/UIInput';
 import { ContainerContext } from '../../Core/Binding';
-import uuid from 'uuid'
-class Component extends React.Component {
-
-    render() {
-        return <SketchPicker />;
-    }
-}
-// import { Button } from 'react-native';
 class Section extends React.Component {
     static type = 'Section'
     static get InspectorDuc() {

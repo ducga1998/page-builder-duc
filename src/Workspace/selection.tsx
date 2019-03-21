@@ -9,6 +9,8 @@ class Selection extends React.Component<any> {
         target : null
     }
     selRef :HTMLElement
+    observeTarget
+	wrapperRef:HTMLElement
     updatePosition = async ( ) => {
         const {idSelected} = this.props
         const target = document.querySelector(`[data-element="${idSelected}"]`)

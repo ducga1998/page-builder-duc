@@ -16,6 +16,7 @@ function convertDataToContainer(data) {
                 const element = addItem(child)
                 const id = element.state.id
                 rootData.children = []
+                
                 rootData.children.push(id)
             })
 
@@ -77,10 +78,10 @@ class PageEditer extends React.Component<any> {
         const type = targetDom.getAttribute('data-type')
         const id = targetDom.getAttribute('data-element')
         const idSelect = workspaceContainer.state.selected[0]
-        Object.assign(this.dropEl.style, { width: width + 'px', height: height + 'px', top: top + 'px', left: left + 'px', display: 'block' })
+        
         if(id === idSelect && INTERATION.categoryDrapStart ==='MOVE_ELEMENT' ) return
         if('Body' === type) return
-       
+        Object.assign(this.dropEl.style, { width: width + 'px', height: height + 'px', top: top + 'px', left: left + 'px', display: 'block' })
         const nX = event.nativeEvent.offsetX
         const nY = event.nativeEvent.offsetY
         const scrollTop = window.scrollY
