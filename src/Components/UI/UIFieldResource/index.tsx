@@ -13,11 +13,9 @@ function UIFieldResouce() {
             <UIField label="Padding(It is BoxModel)" horizontal>
                 <UIField><ControlInput bind="style.paddingTop" /></UIField>
                 <UIField vectical>
-                    <ControlInput bind="style.paddingLeft" style={{width: '30px'}} />
-                    <ControlInput bind="style.padding" />
-                    <ControlInput bind="style.paddingRight" />
-                
-                 
+                    <ControlInput bind="style.paddingLeft" style={{flex: '4'}} />
+                    <ControlInput bind="style.padding" style={{flex: '4'}} />
+                    <ControlInput bind="style.paddingRight" style={{flex: '4'}} />
                 </UIField>
                 <UIField><ControlInput bind="style.paddingBottom" /></UIField>
             </UIField>

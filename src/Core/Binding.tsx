@@ -22,8 +22,8 @@ export function ContainerShare({children}) {
 }
 // function use improve scalalbe for project 
 export default function BindControl(UI) { 
-    return  ({bind} : any) => {
-        const [key , value ] = bind.split('.')
+    return  (props : any) => {
+        const [key , value ] = props.bind.split('.')
         return <ContainerContext.Consumer>
             {
                 container => {
@@ -57,5 +57,5 @@ export default function BindControl(UI) {
     }
     
 }
-export const ControlInput = (UIInput)
+export const ControlInput = BindControl(UIInput)
 // set style complete => save it and update it
