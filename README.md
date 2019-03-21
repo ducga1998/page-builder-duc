@@ -1,7 +1,7 @@
-<i>Product design by: Nguyen Minh Duc</i>
+<i>Product design by: Nguyen Minh Duc</i> :joy::joy::joy::joy::joy::joy::joy
 ## Demo : https://arcane-coast-50710.herokuapp.com/
 ### Build page build as reactjs
-### Expected it complete for 2 week
+### Expected it complete for 1 moth
 ### Run simple vl : yarn start (it start port 3000, you make sure not run port before run command :) )
 <ul>
  <li>
