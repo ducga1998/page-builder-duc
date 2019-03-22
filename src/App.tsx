@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import Style from './Element/Style';
 import { ContainerShare } from './Core/Binding';
 import Logo from './Workspace/logo';
+import PathWay from './Workspace/Footer/pathway';
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
         <Provider>
           <ContainerShare>
           <Logo />
+          <PathWay />
           <LayoutEditer>
             <Style>
             <SideBar />

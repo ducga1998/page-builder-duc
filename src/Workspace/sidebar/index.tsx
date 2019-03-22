@@ -5,13 +5,8 @@ import INTERACTION from '../../reuse/interaction';
 const fakeData = [
     {
         "Section": [
-            { id: 0, type: 'Section' , children : [1] },
-            { id: 1, type: 'Section' , children : [2,3,4,5,6] },
-            { id: 2, type: 'Button' },
-            { id: 3, type: 'Button' },
-            { id: 4, type: 'Button' },
-            { id: 5, type: 'Button', },
-            { id: 6, type: 'Button' },
+            { id: 0, type: 'Section'  },
+            
         ],
     },
     {
@@ -22,7 +17,7 @@ const fakeData = [
                     backgroundColor: 'red'
                 },
                 data: {
-                    value: 'ok'
+                    value: 'Button'
                 }
             }
         ]

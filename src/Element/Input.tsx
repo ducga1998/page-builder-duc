@@ -6,7 +6,6 @@ class Input extends React.Component<any> {
     static defaultProps = {
         value : 'value',
         placeholder : 'ok'
-
     }
     render() {
        

@@ -6,18 +6,17 @@ function UIFieldResouce() {
     return {
         general: null,
         style : <>
-        
             <UIField  label="Background">
                 <ControlInput bind="style.background" />
             </UIField>
             <UIField label="Padding(It is BoxModel)" horizontal>
-                <UIField><ControlInput bind="style.paddingTop" /></UIField>
+                {/* <UIField><ControlInput bind="style.paddingTop" style={{width: '128px'}} /></UIField> */}
                 <UIField vectical>
-                    <ControlInput bind="style.paddingLeft" style={{flex: '4'}} />
-                    <ControlInput bind="style.padding" style={{flex: '4'}} />
-                    <ControlInput bind="style.paddingRight" style={{flex: '4'}} />
+                    <ControlInput bind="style.paddingLeft"  />
+                    <ControlInput bind="style.padding"  />
+                    <ControlInput bind="style.paddingRight"  />
                 </UIField>
-                <UIField><ControlInput bind="style.paddingBottom" /></UIField>
+                {/* <UIField><ControlInput bind="style.paddingBottom" style={{width: '128px'}} /></UIField> */}
             </UIField>
         </>
     }
