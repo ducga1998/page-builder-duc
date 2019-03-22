@@ -13,6 +13,7 @@
  <li>
  Some of the code in this repo uses some UI components in this repo (it's mine too):https://github.com/ducga1998/FrontEndMediumDuc/tree/master/src/Components
  </li>
+ <li> Porject use <b>Boostrap</b> make element style </li>
  
 </ul>
 <i>If you see it awesome then star and follow me else it bullshit here in project then let create issues for me, thanks youuuuuuu for watchingggggg repoooo meeeeeeeeeeeeee =)))))</i>

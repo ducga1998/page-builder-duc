@@ -21,10 +21,10 @@ class Inspector extends React.Component {
             {
                 containerElementSelected => {
                     if (!containerElementSelected) return <WrapperSideBar center>
-                        <P style={{color : '#a2a3a5'}}>
+                        <P style={{ color: '#a2a3a5' }}>
                             Not have Inspector, please selected any element in editor
                         </P>
-                        </WrapperSideBar>
+                    </WrapperSideBar>
                     const { type } = containerElementSelected.state
 
                     let InspectorElement = { ...UIFieldResouce(), ...common[type].InspectorDuc }
@@ -37,17 +37,20 @@ class Inspector extends React.Component {
                                         <UIField vectical>
                                             {
                                                 ['General', 'Styling'].map(item => {
-                                                    return <StyledSolidButton
+                                                    return <ButtonInspector
                                                         data-active={item === this.state.view}
                                                         data-category={item}
                                                         onMouseDown={this.handleMouseDown}>
                                                         {item}
-                                                    </StyledSolidButton>
+                                                    </ButtonInspector>
                                                 })}
                                         </UIField>
-                                        {this.state.view === 'General' ? (InspectorElement.general || <div></div>)
-                                            : InspectorElement.style ? InspectorElement.style : null
+                                       <WrapperContent> {
+                                            this.state.view === 'General' ?
+                                                (InspectorElement.general || <div></div>) :
+                                                InspectorElement.style ? InspectorElement.style : null
                                         }
+                                        </WrapperContent>
                                     </div>
                                 </WrapperSideBar>
                             }
@@ -58,13 +61,19 @@ class Inspector extends React.Component {
         </ContainerContext.Consumer>
     }
 }
-const $Inspector = styled.div`
-
+const ButtonInspector = styled(StyledSolidButton)`
+    width: 50%;
+    border-radius: 0px;
+   
+`
+const WrapperContent = styled.div`
+padding : 20px;
 `
 const WrapperSideBar = styled.div<any>`
 flex : 3;
 ${props => props.center && `display : flex;justify-content : center;
 align-items : center;`}
-padding-left : 10px;
+background: #dcdcdc;
+
 `
 export default Inspector

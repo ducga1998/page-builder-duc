@@ -10,8 +10,8 @@ class PathWay extends React.Component<any> {
         arrPath  : []
     }
     updatePathWay = (domElement , arr = []) => {
-            // console.log('domElement',domElement)
-          
+            console.log('domElement',domElement)
+          if(!domElement ) return  arr
             const parentDom = domElement.parentElement.closest('[data-element]')
             // console.log('parentDom',parentDom)
 

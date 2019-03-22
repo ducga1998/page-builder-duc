@@ -47,16 +47,21 @@ class Section extends React.Component {
         }
     }
     render() {
+        if (React.Children.count(this.props.children) === 0) {
+            return <$Section className="row" center>
+                Section
+        </$Section>
+        }
         console.log('section children', this.props.children)
         return <$Section>
-        
             {this.props.children}
         </$Section>
     }
 }
-const $Section = styled.div`
+const $Section = styled.div<any>`
     padding : 40px;
-    background : #eaeaea;
-    border: 1px dashed ${props => props.theme.bg.default}
+    margin : 0px;
+    border: 1px dashed #808080;
+    ${props => props.center ? `display :flex;justify-content : center;align-items : center;color : #808080` : ''}
 `
 export default enhanceElement(Section)

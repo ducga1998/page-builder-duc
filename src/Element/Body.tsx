@@ -7,7 +7,7 @@ class Body extends React.Component {
     render() {
         console.log('children',React.Children.count(this.props.children),this.props.children)
         if(React.Children.count(this.props.children)  === 0 ){
-            return <$Body center> 
+            return <$Body center > 
                 <Logo />
             </$Body>
         }

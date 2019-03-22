@@ -178,6 +178,7 @@ class PageEditer extends React.Component<any> {
             idRoot = id
         }
         if (INTERATION.position !== 'inside') {
+            if(!domDrop.parentElement) return
             const parentDom = domDrop.parentElement.closest('[data-element]')
             idDrop = parentDom.getAttribute('data-element')
         }
@@ -230,6 +231,7 @@ class PageEditer extends React.Component<any> {
 export default PageEditer
 const WrapperPageEditer = styled.div`
 flex : 8;
+overflow-y : scroll;
 `
 const Flow = styled.div`
     position: absolute;

@@ -20,14 +20,6 @@ class Button extends React.Component<any> {
                 <ControlInput bind="data.categoryButton" />
                 <ControlInput bind="data.value" />
             </UIField>, 
-            style: <>
-                <UIField label="Background">
-                    <ControlInput bind="style.background" />
-                </UIField>
-                <UIField label="Padding">
-                    <ControlInput bind="style.padding" />
-                </UIField>
-            </>
         }
     }
     render() {
