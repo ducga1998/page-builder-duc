@@ -18,6 +18,7 @@ class Row extends React.Component {
 const $Row = styled.div<any>`
 padding : 20px;
 background : #f5f5f5;
+margin : 0px;
 ${props => props.center ? `display :flex;justify-content : center;align-items : center;color ; #efefed` : ''}
 `
 export default enhanceElement(Row)

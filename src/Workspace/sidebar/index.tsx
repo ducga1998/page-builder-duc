@@ -100,6 +100,7 @@ const ListFakeData = styled.div`
 const WrapperSideBar = styled.div`
     flex : 2;
     margin-right : 3px;
+    background : #f7f7f7;
 `
 const ListDrapItem = styled.div`
     display :flex;

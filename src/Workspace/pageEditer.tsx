@@ -1,11 +1,12 @@
 import * as React from 'react'
 import styled from 'styled-components';
-import INTERATION from './reuse/interaction'
-import ElementContainer from './Container/ElementContainer';
+import INTERATION from '../reuse/interaction'
+import ElementContainer from '../Container/ElementContainer';
 import { Provider, SubscribeOne } from 'unstated-x';
-import { storeElement } from './Container/BaseContainer';
-import Selection from './Workspace/selection'
-import workspaceContainer from './Container/WorkspaceContainer';
+import { storeElement } from '../Container/BaseContainer';
+import Selection from './selection'
+import workspaceContainer from '../Container/WorkspaceContainer';
+import PathWay from './Footer/pathway';
 function convertDataToContainer(data) {
     const root = data.find(item => item.id === 0)
     const addItem = (rootChildren: any []) => {
@@ -81,7 +82,6 @@ class PageEditer extends React.Component<any> {
         const id = targetDom.getAttribute('data-element')
         const idSelect = workspaceContainer.state.selected[0]
         if (id === idSelect && INTERATION.categoryDrapStart === 'MOVE_ELEMENT') return
-        if ('Body' === type) return
         if(INTERATION.typeElement === type ) return
         Object.assign(this.dropEl.style, { width: width + 'px', height: height + 'px', top: top + 'px', left: left + 'px', display: 'block' })
         const nX = event.nativeEvent.offsetX
@@ -221,6 +221,7 @@ class PageEditer extends React.Component<any> {
                         return <Selection idSelected={selected[0]} />
                     }}
                 </SubscribeOne>
+                
             </Provider>
         </WrapperPageEditer>
     }
@@ -250,7 +251,9 @@ const DropOver = styled.div`
 
 const WrapperPage = styled.div`
     width  :100%;
-    background :#DFE7EF;
+    height : 100%;
+    background :#d7dada;
+    padding : 10px;
     position : relative;
   
 `

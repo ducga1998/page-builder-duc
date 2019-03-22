@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components';
 import { SubscribeOne } from 'unstated-x';
 import workspaceContainer from '../../Container/WorkspaceContainer';
-import { StyledOutlineButton } from '../../Components/styled/button';
+import { StyledOutlineButton, StyledTextButton, StyledSolidButton } from '../../Components/styled/button';
 import { storeElement } from '../../Container/BaseContainer';
 
 class PathWay extends React.Component<any> {
@@ -33,18 +33,19 @@ class PathWay extends React.Component<any> {
            {
                 ws => {
                     const idSelected = ws.state.selected[0]
-                    if(!idSelected) return
+                    if(!idSelected) return<WrapperPathWay />
                     const containerElement = storeElement.get(idSelected)
                     const arrPath = this.updatePathWay(containerElement.state.domElement) as any[]
                     return <WrapperPathWay>
                         {arrPath.reverse().map(item => {
-                            return <StyledOutlineButton 
+                            return <StyledSolidButton color="space.default"
+                            hoverColor="space.dark"
                             onMouseDown={ () => {
                                 this.handleMouseDown(item.id)
                             }}
                             data-active={item.id ===idSelected }>
                              {item.type}
-                             </StyledOutlineButton>
+                             </StyledSolidButton>
                         })}
                     </WrapperPathWay>
                 }
@@ -54,5 +55,11 @@ class PathWay extends React.Component<any> {
 }
 const WrapperPathWay = styled.div`
     display :flex;
+    height : 50px;
+    background : #4400cf;
+    ${StyledSolidButton}{
+        margin-right :20px;
+    }
+
 `   
 export default PathWay

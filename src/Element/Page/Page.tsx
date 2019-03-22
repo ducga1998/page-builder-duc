@@ -8,8 +8,8 @@ const idBody  = uuid()
 const idSection  = uuid()
 const defautData = {
    
-    idBody : new ElementContainer({children : [idSection] , id : idBody , type : 'Body'}),
-    idSection : new ElementContainer({id  : idSection ,  type : 'Section' }),
+    idBody : new ElementContainer({  id : idBody , type : 'Body'}),
+    // idSection : new ElementContainer({id  : idSection ,  type : 'Section' }),
    
 }
 interface IPage {

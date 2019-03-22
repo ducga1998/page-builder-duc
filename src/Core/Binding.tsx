@@ -32,7 +32,7 @@ export default function BindControl(UI) {
                         return <SubscribeStyle to={container} bind={''} key={id}>
                             {
                                 (con , styleCom)=> {
-                                    return <UI onChange={valueUI => {
+                                    return <UI {...props}onChange={valueUI => {
                                             container.setStyle({[value] : valueUI})
                                         
                                     }}  
@@ -44,7 +44,7 @@ export default function BindControl(UI) {
                         </SubscribeStyle>
                     }
                     else if(key === 'data'){
-                        return <UI onChange={valueUI => {
+                        return <UI  {...props} onChange={valueUI => {
                                         container.setState({[value] : valueUI})
                                 }}  
                                 value={container.state.data[value]} 

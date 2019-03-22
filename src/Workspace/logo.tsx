@@ -13,10 +13,8 @@ class Logo extends React.Component<any> {
     }
     selRef :HTMLElement
     render() {
-        return <WrapperLogo>
-
-            <AvatarImage data-tooltip="HELLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" size={150}src="/default2.png" />
-        </WrapperLogo>
+        return  <AvatarImage data-tooltip="Drag elelement to left in meeeee =))) " size={150}src="/default2.png" />
+   
     }
 }
 const WrapperLogo = styled.div`
