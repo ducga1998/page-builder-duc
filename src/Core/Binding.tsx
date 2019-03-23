@@ -4,6 +4,7 @@ import * as React from "react";
 import workspaceContainer from "../Container/WorkspaceContainer";
 import UIInput from "../Components/UI/UIInput";
 import { SubscribeStyle } from "../Container/StyleContainer";
+import UISelect from "../Components/UI/UISelect";
 export const ContainerContext = React.createContext(null) as any
 // it's use to share container => it 's render and use file app.tsx 
 export function ContainerShare({children}) {
@@ -36,7 +37,7 @@ export default function BindControl(UI) {
                                             container.setStyle({[value] : valueUI})
                                         
                                     }}  
-                                    placeholder={getComputedStyle(domElement)[value]} 
+                                    placeholder={domElement ?getComputedStyle(domElement)[value]: ''} 
                                     value={styleCom.style[value]} 
                                     />
                                 }
@@ -45,11 +46,11 @@ export default function BindControl(UI) {
                     }
                     else if(key === 'data'){
                         return <UI  {...props} onChange={valueUI => {
-                                        container.setState({[value] : valueUI})
+                                const {data } = container.state
+                                        container.setState({data : {...data ,...{[value] :valueUI} }})
                                 }}  
                                 value={container.state.data[value]} 
                                 />
-                          BindControl
                     } 
                 }
             }
@@ -58,4 +59,5 @@ export default function BindControl(UI) {
     
 }
 export const ControlInput = BindControl(UIInput)
+export const ControlSelect = BindControl(UISelect)
 // set style complete => save it and update it

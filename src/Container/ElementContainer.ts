@@ -19,17 +19,17 @@ class ElementContainer extends BaseContainer {
 
     setStyle(state) {
         const styles = this.getStyle
-       const arrState =  Object.entries(state)[0]
-    //    console.log(arrState)
-       styles.style[arrState[0]] = arrState[1]
-       this._listenersStyle.map(item =>item())
+        const arrState =  Object.entries(state)[0]
+        //    console.log(arrState)
+        styles.style[arrState[0]] = arrState[1]
+        this._listenersStyle.map(item =>item())
     }
     get getStyle(){
         // console.log('className',this.state.className)
         const {className} = this.state
         const instanceStyle  = document.styleSheets[2]  as any
         const arrInstanceStyle  =  Array.from(instanceStyle.cssRules)
-        const rule =arrInstanceStyle.find((rule : any) => rule.selectorText === `.${this.state.className}`  )
+        const rule = arrInstanceStyle.find((rule : any) => rule.selectorText === `.${this.state.className}`  )
     //    console.log('rule',rule , instanceStyle)
         if(!rule){
              instanceStyle.insertRule(`.${className}{}`,arrInstanceStyle.length)

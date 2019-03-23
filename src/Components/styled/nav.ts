@@ -37,7 +37,7 @@ export const Section = styled(FlexRow) <any>`
   }
 `;
 
-export const LogoLink = styled(Link)`
+export const LogoLink = styled.a`
   color : ${props => props.theme.text.reverse};
   margin-right: 32px;
   display: flex;
@@ -58,7 +58,7 @@ export const Logo = styled.img`
   left: 1px;
 `;
 
-export const IconLink = styled(Link)`
+export const IconLink = styled.a`
   ${fontStack}
   display: flex;
   flex: auto;

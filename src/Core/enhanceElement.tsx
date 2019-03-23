@@ -5,6 +5,7 @@ import omit from 'lodash'
 export default function enhanceElement(Element) {
     return class extends Element {
         render() {
+            console.log('this.props',this.props)
             let { elementContainer , elementContainer : {state : { id, type, data ,className }} } = this.props
             const instance = super.render()
             elementContainer.state.componentStyle  =  instance.type.componentStyle

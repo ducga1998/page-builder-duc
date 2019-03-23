@@ -30,8 +30,9 @@ export default function renderElement(idElement, parentId = '') {
                             elementContainer.state.data = { ...Element.defaultProps, ...data } || {}
 
                             const props = {
-                                elementContainer,
-                                ref: e => elementContainer.state.instance = e,
+                              ...{  elementContainer,
+                                ref: e => elementContainer.state.instance = e
+                            },...elementContainer.state.data
                             }
                             return <Element {...props} key={id} >
                                 {children.map((childId: string) => renderElement(childId, idElement))}

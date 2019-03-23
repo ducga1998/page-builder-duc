@@ -1,7 +1,6 @@
 
 import * as React from 'react';
 import styled from 'styled-components';
-import { H3 } from '../styled/base';
 function findDomToolTip(count , dom){
     if(count  > 3 || !dom){
         return  null
@@ -34,16 +33,6 @@ export default class UITooltip extends React.Component<any> {
             const {width : widthToolTip} = domToolTip.getBoundingClientRect()
             const {height : heightToolTip} = domToolTip.getBoundingClientRect()
             let topTooltip = top + scrollTop -  heightToolTip  ;
-            // if(top  + heightToolTip > window.innerHeight) {
-            //     topTooltip = top  - heightToolTip -10 + 'px'
-            //     leftTooltip = left + 'px'
-            //     console.log('th1')
-            // }
-            // else {
-            //     topTooltip = top  + heightToolTip +10 + 'px'
-            //     leftTooltip = left + 'px'
-            //     console.log('th2')
-            // }
             if( left + widthToolTip  > window.innerWidth ) {
               
                 leftTooltip = left - (widthToolTip/2)  ;   
@@ -52,17 +41,8 @@ export default class UITooltip extends React.Component<any> {
             if(top - heightToolTip <0) {
                 topTooltip  = top  + height 
             }
-            // else{
-            //     topTooltip =  top + 'px'
-            //     leftTooltip = `${left + widthToolTip + 5}px`;
-            //     console.log('th1')
-            // }
-
             domToolTip.style.top = topTooltip  + 'px'
             domToolTip.style.left = leftTooltip +'px'
-
-           
-           
         }
     }
     handleMouseLeave = (e) => {
