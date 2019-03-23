@@ -7,7 +7,7 @@ let rafId: any
 
 const run = () => {
 	observedNodes.forEach(state => {
-		if (state.hasRectChanged) {
+	if (state.hasRectChanged) {
 			state.callbacks.forEach((cb: (rect: {}) => any) => cb(state.rect))
 			state.hasRectChanged = false
 		}
@@ -27,6 +27,7 @@ const run = () => {
 }
 
 export default (node: HTMLElement, cb: (rect: {}) => any): { observe: () => void, unobserve: () => void } => {
+	if(!node) return 
 	return {
 		observe() {
 			const wasEmpty = observedNodes.size === 0

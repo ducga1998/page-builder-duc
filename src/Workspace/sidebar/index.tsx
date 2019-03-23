@@ -57,6 +57,11 @@ const fakeData = [
             
         
         ]
+    },
+    {
+        'Image' : [
+            {id : 0 , type : 'Image'}
+        ]
     }
 ]
 class Sidebar extends React.Component {

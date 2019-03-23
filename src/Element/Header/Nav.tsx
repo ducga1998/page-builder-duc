@@ -6,50 +6,42 @@ import { Subscribe } from 'unstated-x';
 import { SketchPicker } from 'react-color';
 import { SubscribeStyle } from '../../Container/StyleContainer';
 import UIInput from '../../Components/UI/UIInput';
-import { ContainerContext } from '../../Core/Binding';
-class Nav extends React.Component {
+import { ContainerContext, ControlSelect } from '../../Core/Binding';
+import UIField from '../../Components/UI/UIField';
+type BoostrapType = 'light' | 'dark' | 'primary' | 'success' | 'info' | 'warning' | 'danger'
+interface INav {
+    bg: any
+    expand: boolean,
+}
+class Nav extends React.Component<INav> {
     static type = 'Nav'
+    static defaultProps = {
+        expand : true,
+        bg : { value: 'dark', label: 'Dark' },
+    }
     static get InspectorDuc() {
         return {
-            general: <ContainerContext.Consumer>
-                {
-                    container => {
-                        console.log('container', container.state.id)
-                        return <div>
-                            <Subscribe to={[container]}>
-                                {
-                                    (con: any) => {
-
-                                        return <>
-
-                                            <SketchPicker
-                                                onChangeComplete={(color) => {
-                                                    con.setStyle({ background: color.hex })
-                                                }} />
-                                        </>
-                                    }
-                                }
-                            </Subscribe>
-                            <SubscribeStyle to={container} bind={'background'} key={container.state.id}>
-                                {
-                                    (containerStyle, rule) => {
-                                        // console.log("styles.style['background']",valueStyle)
-                                        return <UIInput onChange={value => {
-                                            container.setStyle({ background: value })
-                                        }} value={rule.style['background']} />
-                                    }
-                                }
-                            </SubscribeStyle>
-                        </div>
-                    }
-                }
-            </ContainerContext.Consumer>
+            general: <UIField label ="Type nav">
+                <ControlSelect bind="data.bg" options={[
+                    { value: 'light', label: 'Light' },
+                    { value: 'dark', label: 'Dark' },
+                    { value: 'primary', label: 'Primary' },
+                    { value: 'success', label: 'Success' },
+                    { value: 'info', label: 'Info' },
+                    { value: 'warning', label: 'Warning' },
+                    { value: 'danger', label: 'Danger' },
+                ]} />
+            </UIField>
         }
     }
+    get className() {
+        const { bg, expand } = this.props
+        return `navbar ${bg ? 'bg-' + bg.value : ''} ${expand ? 'navbar-expand' : ''} navbar-dark`
+    }
     render() {
-       return <$Nav className="navbar navbar-expand-sm bg-light">
-                {this.props.children}
-     </$Nav>
+        return <$Nav className={this.className}>
+            {this.props.children}
+        </$Nav>
     }
 }
 const $Nav = styled.div`

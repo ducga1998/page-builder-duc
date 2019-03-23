@@ -3,18 +3,25 @@ import styled from 'styled-components';
 import { SubscribeOne } from 'unstated-x';
 import workspaceContainer from '../Container/WorkspaceContainer';
 import { storeElement } from '../Container/BaseContainer';
+import observeRect from '../help/observe-rect';
 
 class Selection extends React.Component<any> {
     state = {
         target : null
     }
     selRef :HTMLElement
-    observeTarget
     wrapperRef:HTMLElement
-    overRef : HTMLElement
+    observeObj  = null 
+    overRef  :HTMLElement
     updatePosition = async ( ) => {
         const {idSelected} = this.props
-        const target = document.querySelector(`[data-element="${idSelected}"]`)
+        const target = document.querySelector(`[data-element="${idSelected}"]`) as HTMLElement
+        this.observeObj  =  observeRect(target , (rect :any) => {
+            const {width : widthOb , height : heightOb , top :topOb  , left : leftOb} = rect
+            Object.assign(this.selRef.style, { width: widthOb + 'px', height: heightOb + 'px', top: topOb +scrollTop+ 'px', left: leftOb + 'px', display: 'block' })
+        })  
+        if(!this.observeObj) return
+         await this.observeObj.observe()
         if(!target) return
         const type = target.getAttribute('data-type')
         this.overRef.innerHTML = type
@@ -24,6 +31,12 @@ class Selection extends React.Component<any> {
     }
     componentDidUpdate(){
        this.updatePosition()
+    }
+    componentWillUnmount(){
+        console.log('unmout')
+        if(this.observeObj){
+            this.observeObj.unobserve()
+        }
     }
     render() {
         return <SubscribeOne to={workspaceContainer} bind={['selected']}>

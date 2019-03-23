@@ -18,6 +18,10 @@ function UIFieldResouce() {
                 </UIField>
                 <UIField><ControlInput bind="style.paddingBottom"  /></UIField>
             </UIField>
+            <UIField  label="Width and height">
+                <ControlInput bind="style.width" />
+                <ControlInput bind="style.height" />
+            </UIField>
         </>
     }
 }

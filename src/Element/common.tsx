@@ -9,6 +9,7 @@ import Column from './Layout/Column'
 import Nav from './Header/Nav'
 import Ul from './Header/Ul'
 import Li from './Header/Li'
+import Image from './Image/Image'
 export default {
     'Button':Button,
     'Text' : TextElement,
@@ -19,5 +20,7 @@ export default {
     Row,
     Nav,
     Ul,
-    Li
+    Li,
+    Image
+    
 }

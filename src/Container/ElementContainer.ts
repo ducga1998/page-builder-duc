@@ -64,6 +64,7 @@ class ElementContainer extends BaseContainer {
     }
 
     getTemplateData(){
+        // stop devlopement beasue it 's hard
         const arrContainer = []
         const dataConvert = []
         storeElement.forEach(item =>  arrContainer.push(item) )
@@ -101,7 +102,6 @@ class ElementContainer extends BaseContainer {
         const check = Array.from(sheetStyle.cssRules).find((item:any) => item.selectorText.includes(this.selector))
         return !!check
     }
-    
     pushEventToListense(func){
         this.instanceStyle.push(func)
     }
