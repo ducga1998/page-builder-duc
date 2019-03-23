@@ -11,7 +11,7 @@ import Navbar from './Workspace/navbar';
 import ToastContainer from './Workspace/Toast'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { H2 } from './Components/styled/base';
+import { H2, P } from './Components/styled/base';
 import Emoji from 'a11y-react-emoji'  
 import { AvatarImage } from './Components/styled/avatar';
 class App extends Component {
@@ -24,6 +24,9 @@ class App extends Component {
       </a>
       </>)
     },2000)
+   setTimeout(() => {
+    toast.info(<P>I am usually update project, present project develop, Please wait patiently</P>)
+   }, 150000)
   }
   render() {
     return <UITheme>

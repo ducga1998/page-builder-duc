@@ -26,8 +26,8 @@ export default function renderElement(idElement, parentId = '') {
                                 parentId,
                                 className: className ? className : `pb-duc-${randomString.split('-')[0]}`,
                             })
-
-                            elementContainer.state.data = { ...Element.defaultProps, ...data } || {}
+                            console.log('Element.defaultProps',Element)
+                            elementContainer.state.data = { ...{}, ...data } || {}
 
                             const props = {
                               ...{  elementContainer,

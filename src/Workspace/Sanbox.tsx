@@ -11,6 +11,7 @@ import styled from 'styled-components';
 class Sanbox extends React.Component<any> {
     wrapperRef : HTMLElement
     componentDidMount(){
+        if(!this.wrapperRef) return 
         this.wrapperRef.style.height = window.innerHeight + 'px'
         window.addEventListener('resize' , () => {
             console.log('')

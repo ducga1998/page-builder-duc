@@ -10,6 +10,8 @@ import Nav from './Header/Nav'
 import Ul from './Header/Ul'
 import Li from './Header/Li'
 import Image from './Image/Image'
+import Slider from './Slider/Slider'
+import Slide from './Slider/Slide'
 export default {
     'Button':Button,
     'Text' : TextElement,
@@ -21,6 +23,8 @@ export default {
     Nav,
     Ul,
     Li,
-    Image
+    Image,
+    Slider,
+    Slide,
     
 }

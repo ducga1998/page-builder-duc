@@ -16,6 +16,7 @@ class Selection extends React.Component<any> {
     updatePosition = async ( ) => {
         const {idSelected} = this.props
         const target = document.querySelector(`[data-element="${idSelected}"]`) as HTMLElement
+        if(!this.selRef) return
         this.observeObj  =  observeRect(target , (rect :any) => {
             const {width : widthOb , height : heightOb , top :topOb  , left : leftOb} = rect
             Object.assign(this.selRef.style, { width: widthOb + 'px', height: heightOb + 'px', top: topOb +scrollTop+ 'px', left: leftOb + 'px', display: 'block' })

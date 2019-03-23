@@ -16,7 +16,7 @@ class Column extends React.Component<any> {
     }
 }
 const $Column = styled.div<any>`
-    background : #f5f5f5;
+
     padding : 20px;
     border: 1px dashed #ccc5c5
     ${props => props.center ? `display :flex;justify-content : center;align-items : center;color ; #efefed` : ''}

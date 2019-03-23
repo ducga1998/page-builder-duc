@@ -62,6 +62,22 @@ const fakeData = [
         'Image' : [
             {id : 0 , type : 'Image'}
         ]
+    },
+    {
+        'Slider @@' : [
+           { id : 0 , type : 'Slider' , children : [1,2,3]},
+           { id : 1 , type : 'Slide' , children : [3]},
+           { id : 2 , type : 'Slide' },
+           { id : 3 , type : 'Button' , children : [4]},
+        //    { id : 4 , type : 'Text ' ,data : {
+        //        value : 'Nguyen Minh Duc'
+        //    }},
+        //    { id : 1 , type : 'Button' , children : [2]},
+        //    { id : 2 , type : 'Text ' ,data : {
+        //        value : 'Nguyen Minh Duc 2'
+        //    }}
+
+        ]
     }
 ]
 class Sidebar extends React.Component {
