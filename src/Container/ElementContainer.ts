@@ -19,9 +19,14 @@ class ElementContainer extends BaseContainer {
 
     setStyle(state) {
         const styles = this.getStyle
-        const arrState =  Object.entries(state)[0]
+        const arrState =  Object.entries(state)
+        if(arrState.length > 0){
+            arrState.forEach(state => {
+                styles.style[state[0]] = state[1]
+            });
+        }
         //    console.log(arrState)
-        styles.style[arrState[0]] = arrState[1]
+       
         this._listenersStyle.map(item =>item())
     }
     get getStyle(){

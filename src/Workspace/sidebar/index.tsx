@@ -65,18 +65,10 @@ const fakeData = [
     },
     {
         'Slider @@' : [
-           { id : 0 , type : 'Slider' , children : [1,2,3]},
+           { id : 0 , type : 'Slider' , children : [1,2] , styles : {height : '500px', background : '#dedede'}},
            { id : 1 , type : 'Slide' , children : [3]},
            { id : 2 , type : 'Slide' },
-           { id : 3 , type : 'Button' , children : [4]},
-        //    { id : 4 , type : 'Text ' ,data : {
-        //        value : 'Nguyen Minh Duc'
-        //    }},
-        //    { id : 1 , type : 'Button' , children : [2]},
-        //    { id : 2 , type : 'Text ' ,data : {
-        //        value : 'Nguyen Minh Duc 2'
-        //    }}
-
+           { id : 3 , type : 'Button'  },
         ]
     }
 ]

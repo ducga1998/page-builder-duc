@@ -10,25 +10,23 @@ class PathWay extends React.Component<any> {
         arrPath  : []
     }
     updatePathWay = (domElement , arr = []) => {
-            console.log('domElement',domElement)
-          if(!domElement ) return  arr
-            const parentDom = domElement.parentElement.closest('[data-element]')
+        if(!domElement ) return  arr
+        const parentDom = domElement.parentElement.closest('[data-element]')
             // console.log('parentDom',parentDom)
 
-            if(!domElement ||!parentDom ){
-                return arr
-            }
+        if(!domElement ||!parentDom ){
+            return arr
+        }
             
-            const type = domElement.getAttribute('data-type')
-            const id = domElement.getAttribute('data-element')
-            arr.push({type,  id})
-            return this.updatePathWay(parentDom , arr)
+        const type = domElement.getAttribute('data-type')
+        const id = domElement.getAttribute('data-element')
+        arr.push({type,  id})
+        return this.updatePathWay(parentDom , arr)
     }
     handleMouseDown = (id) => {
         workspaceContainer.setState({selected : [id]})
     }
     render(){
-
         return <SubscribeOne to={workspaceContainer} bind={['selected']}>
            {
                 ws => {

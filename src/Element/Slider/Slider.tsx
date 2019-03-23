@@ -5,6 +5,8 @@ import { PageFlySliderController } from 'slider-x'
 import styled from 'styled-components'
 import enhanceElement from '../../Core/enhanceElement';
 import ReactDOM from 'react-dom';
+import UIField from '../../Components/UI/UIField';
+import { ControlInput } from '../../Core/Binding';
 
 const SliderOption = [
 	'curr',
@@ -97,7 +99,9 @@ export class Slider extends React.Component<any> {
     }
     static get InspectorDuc() {
         return {
-            general:null
+            general:<UIField>
+                <ControlInput bind="style.height" />
+            </UIField>
         }
     }
 

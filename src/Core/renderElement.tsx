@@ -18,7 +18,7 @@ export default function renderElement(idElement, parentId = '') {
                 // console.log('sheetsheetsheet',sheetStyle)
                 return <Subscribe to={[container]} key={idElement}>
                     {
-                        elementContainer => {
+                        (elementContainer  :any) => {
                             const randomString = uuid()
                             const { id, children, data, styles } = elementContainer.state
                             const { className } = elementContainer.state
@@ -28,7 +28,8 @@ export default function renderElement(idElement, parentId = '') {
                             })
                             console.log('Element.defaultProps',Element.defaultProps)
                             elementContainer.state.data = { ...Element.defaultProps, ...data } || {}
-
+                           
+                            elementContainer.setStyle( styles || {})
                             const props = {
                               ...{  elementContainer,
                                 ref: e => elementContainer.state.instance = e

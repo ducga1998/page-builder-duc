@@ -2,6 +2,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { storeElement } from '../../Container/BaseContainer';
+import enhanceElement from '../../Core/enhanceElement';
 class Tab extends React.Component<any> {
 	static type = 'Tab'
 	static defaultProps = {
