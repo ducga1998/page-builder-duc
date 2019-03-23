@@ -1,24 +1,41 @@
-import * as React from 'react'
-import enhanceElement from '../../Core/enhanceElement';
-import styled from 'styled-components';
-import { Subscribe } from 'unstated-x';
-// import React from 'react';
-import { SketchPicker } from 'react-color';
-import { SubscribeStyle } from '../../Container/StyleContainer';
-import UIInput from '../../Components/UI/UIInput';
-import { ContainerContext } from '../../Core/Binding';
-class Tabs extends React.Component {
-    static type = 'Tab'
-    static get InspectorDuc() {
-        return {
-            general: null
-        }
-    }
-    render() {
-        return null
-    }
+
+import React from 'react'
+import styled from 'styled-components'
+import { storeElement } from '../../Container/BaseContainer';
+class Tab extends React.Component<any> {
+	static type = 'Tab'
+	static defaultProps = {
+		icon: '',
+		name: 'Content'
+	}
+	getParentContainer = () => {
+        const { elementContainer : {state : {parentId}}} = this.props
+        
+		return storeElement.get(parentId)
+
+	}
+
+
+
+
+	render() {
+		const { elementContainer, mode } = this.props
+		const containerParent: any = this.getParentContainer()
+		const childrenParent = containerParent.state.children
+		const { active, activeFront } = this.props
+		// console.log(elementContainer.state.id, childrenParent, activeFront, active)
+		return <$Tab data-id={ elementContainer.state.id } style={
+			{
+				display: (childrenParent[mode === 'edit' || activeFront < 0 ? active : activeFront] === elementContainer.state.id) ? 'block ' : 'none'
+			}
+		}
+		>
+			{ this.props.children }
+		</$Tab>
+	}
 }
-const $Tabs = styled.div<any>`
- 
+
+// check => activeFront < 0  => get value active
+export default enhanceElement(Tab)
+const $Tab = styled.div`
 `
-export default enhanceElement(Tabs)
