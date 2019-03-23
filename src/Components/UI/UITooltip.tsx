@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import styled from 'styled-components';
+import Emoji from 'a11y-react-emoji';
 function findDomToolTip(count , dom){
     if(count  > 3 || !dom){
         return  null
@@ -23,7 +24,7 @@ export default class UITooltip extends React.Component<any> {
             console.log(dom)
             const text = dom.getAttribute('data-tooltip')
             const domToolTip = this.refToolTip.current
-            domToolTip.innerHTML = text
+            domToolTip.innerHTML = text 
             const { top, left, width, height } = dom.getBoundingClientRect()
            
             const view = dom.ownerDocument.defaultView

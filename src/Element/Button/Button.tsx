@@ -8,6 +8,7 @@ import { SubscribeStyle } from '../../Container/StyleContainer';
 import UIInput from '../../Components/UI/UIInput';
 import UIField from '../../Components/UI/UIField';
 import styled from 'styled-components';
+import { storeElement } from '../../Container/BaseContainer';
 
 const options = [
     { value: 'danger', label: 'Danger Button' },
@@ -21,7 +22,7 @@ const options = [
 class Button extends React.Component<any> {
     static type = 'Button'
     static defaultProps = {
-        categoryButton:  { vaue: 'default', label: 'Default Button' },
+        categoryButton:  { value: 'default', label: 'Default Button' },
         ouline: false
     }
     static get InspectorDuc() {
@@ -29,14 +30,16 @@ class Button extends React.Component<any> {
             general:<ContainerContext>
                 {
                     con => {
-                        return <Subscribe to={[con]}>
+                        const {children} =  con.state
+                        const containerText  = storeElement.get(children[0])
+                        return <Subscribe to={[containerText]}>
                             {() => {
+                                const { value  } = containerText.state.data
                                 return  <UIField>
-                                <UIField label="Category">
-                                    <ControlInput bind="data.categoryButton" />
-                                </UIField>
-                                <UIField label="Value">
-                                    <ControlInput bind="data.value" />
+                                <UIField label="Text Value">
+                                    <UIInput value={value} onChange={value => {
+                                        containerText.setState({data : {value}})
+                                    }} />
                                 </UIField>
                                 <UIField label="Category">
                                <ControlSelect  options ={options} bind="data.categoryButton" value={con.state.data.categoryButton}  />

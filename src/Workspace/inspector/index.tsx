@@ -70,10 +70,11 @@ const WrapperContent = styled.div`
 padding : 20px;
 `
 const WrapperSideBar = styled.div<any>`
+overflow : scroll;
 flex : 3;
 ${props => props.center && `display : flex;justify-content : center;
 align-items : center;`}
-background: #dcdcdc;
+background: #e8e7ff;
 
 `
 export default Inspector

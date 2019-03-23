@@ -59,7 +59,7 @@ export default function UIPopup({children , trigger ,  width  , height }:IPopUp)
         }
     
     }
-   const Button  =  React.cloneElement(trigger , {
+   const Button  =  React.cloneElement(<div style={{cursor : 'pointer'}}>{trigger}</div> , {
         onMouseDown :  updatePosition ,   
         style : { zIndex : 9090 }        
     })

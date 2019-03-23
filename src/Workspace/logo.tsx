@@ -13,7 +13,7 @@ class Logo extends React.Component<any> {
     }
     selRef :HTMLElement
     render() {
-        return  <AvatarImage data-tooltip="Drag elelement to left in meeeee =))) " size={150}src="/default2.png" />
+        return  <AvatarImage data-tooltip="Drag elelement to left in meeeee =))) " size={150} src="/default2.png" />
    
     }
 }

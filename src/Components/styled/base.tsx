@@ -280,8 +280,8 @@ export const FlexRow = styled.div`
  
   display: flex;
   flex-direction: row;
-  /* justify-content: flex-start; */
-  /* align-items: center; */
+  justify-content: flex-start;
+  align-items: center;
   
  
 `;
@@ -289,8 +289,8 @@ export const FlexRow = styled.div`
 export const FlexCol = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
-  /* align-items: stretch; */
+  justify-content: flex-start;
+  align-items: stretch;
  
 `;
 // use tooltip

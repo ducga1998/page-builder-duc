@@ -1137,6 +1137,10 @@
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.1.tgz#5c85d662f76fa1d34575766c5dcd6615abcd30d8"
 
+a11y-react-emoji@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/a11y-react-emoji/-/a11y-react-emoji-1.0.0.tgz#4c33557b4857da365c387dfa3553958c6d0177e2"
+
 abab@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"

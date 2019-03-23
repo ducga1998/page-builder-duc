@@ -8,6 +8,7 @@
     "@types/react": "16.8.8",
     "@types/react-dom": "16.8.2",
     "@types/styled-components": "^4.1.12",
+    "a11y-react-emoji": "^1.0.0",
     "react": "^16.8.4",
     "react-color": "^2.17.0",
     "react-dom": "^16.8.4",

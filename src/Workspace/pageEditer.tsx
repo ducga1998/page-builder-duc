@@ -234,7 +234,7 @@ class PageEditer extends React.Component<any> {
 export default PageEditer
 const WrapperPageEditer = styled.div`
 flex : 8;
-overflow-y : scroll;
+overflow : scroll;
 `
 const Flow = styled.div`
     position: absolute;
