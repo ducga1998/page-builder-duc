@@ -141,52 +141,55 @@ class PageEditer extends React.Component<any> {
     handleDropCapture = async (ev) => {
         ev.preventDefault()
         // ev.stopPropagation()
-        let idRoot = ''
-        const domElement = ev.target.closest('[data-element]')
-        let domDrop = INTERATION.dropDom
-        console.log('domDrop', domDrop)
-        if (!domDrop) return
-        let idDrop = domDrop.getAttribute('data-element')
-        const idElementDrop = domElement.getAttribute('data-element')
-        // change idRoot
-        if (INTERATION.categoryDrapStart === 'DRAG_ELEMENT') {
-            // create to data 
-            const nameDom = ev.dataTransfer.getData("PB-duc");
-            const dataObj = JSON.parse(`${nameDom}`)
-
-            const containerElement = convertDataToContainer(dataObj)
-            idRoot = containerElement.state.id
-        }
-        else if (INTERATION.categoryDrapStart === 'MOVE_ELEMENT') {
-            // move element
-            const { selected } = workspaceContainer.state
-            const containerElement = storeElement.get(selected[0])
-
-            const { id, parentId } = containerElement.state;
-            if (idDrop === parentId && INTERATION.position === 'inside') {
-                console.log('run return : ((')
-                INTERATION.reset()
-                return
+        try {
+            let idRoot = ''
+            const domElement = ev.target.closest('[data-element]')
+            let domDrop = INTERATION.dropDom
+            console.log('domDrop', domDrop)
+            if (!domDrop) return
+            let idDrop = domDrop.getAttribute('data-element')
+            const idElementDrop = domElement.getAttribute('data-element')
+            // change idRoot
+            if (INTERATION.categoryDrapStart === 'DRAG_ELEMENT') {
+                // create to data 
+                const nameDom = ev.dataTransfer.getData("PB-duc");
+                const dataObj = JSON.parse(`${nameDom}`)
+    
+                const containerElement = convertDataToContainer(dataObj)
+                idRoot = containerElement.state.id
             }
-            const containerParent = storeElement.get(parentId)
-            // if(idElementDrop !== idDrop) {
-            await containerParent.setState({ children: containerParent.state.children.filter(child => child !== id) }, () => {
-                workspaceContainer.setState({ selected: [idDrop] })
-            })
-            // }
-
-            idRoot = id
+            else if (INTERATION.categoryDrapStart === 'MOVE_ELEMENT') {
+                // move element
+                const { selected } = workspaceContainer.state
+                const containerElement = storeElement.get(selected[0])
+    
+                const { id, parentId } = containerElement.state;
+                if (idDrop === parentId && INTERATION.position === 'inside') {
+                    console.log('run return : ((')
+                    INTERATION.reset()
+                    return
+                }
+                const containerParent = storeElement.get(parentId)
+                // if(idElementDrop !== idDrop) {
+                await containerParent.setState({ children: containerParent.state.children.filter(child => child !== id) }, () => {
+                    workspaceContainer.setState({ selected: [idDrop] })
+                })
+                // }
+    
+                idRoot = id
+            }
+            if (INTERATION.position !== 'inside') {
+                if(!domDrop.parentElement) return
+                const parentDom = domDrop.parentElement.closest('[data-element]')
+                idDrop = parentDom.getAttribute('data-element')
+            }
+    
+            await updatePositionElement(idDrop, idRoot)
+            await workspaceContainer.setState({ selected: [idRoot] })
+            this.dropEl.style.display = 'none'
+            this.flowRef.style.display = 'none'
         }
-        if (INTERATION.position !== 'inside') {
-            if(!domDrop.parentElement) return
-            const parentDom = domDrop.parentElement.closest('[data-element]')
-            idDrop = parentDom.getAttribute('data-element')
-        }
-
-        await updatePositionElement(idDrop, idRoot)
-        await workspaceContainer.setState({ selected: [idRoot] })
-        this.dropEl.style.display = 'none'
-        this.flowRef.style.display = 'none'
+        catch{e => console.error(e)}
     }
     handleDrapStart = (event) => {
         event.stopPropagation()
