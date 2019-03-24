@@ -10,35 +10,35 @@ import { ModeContext } from '../Container/PageContainer';
 import Navbar from './navbar';
 class Sanbox extends React.Component<any> {
     state = {
-        view : 'edit'
+        view: 'edit'
     }
     render() {
         return <WrappeAllApp >
-          <Navbar onChange={ (view) => { this.setState({view})}} active={this.state.view}/>
+            <Navbar onChange={(view) => { this.setState({ view }) }} active={this.state.view} />
 
-           {this.state.view  === 'edit' ?<>
-            <LayoutEditer>
-            <Style>
-                <SideBar />
-                <ModeContext.Provider value="edit">
-                    <PageEditer >
+            {this.state.view === 'view' ? <LayoutEditer>
+                <Style>
+                    <ModeContext.Provider value="view">
                         <Page />
-                    </PageEditer>
-                </ModeContext.Provider>
-                <Inspector />
-            </Style>
-        </LayoutEditer>
-        <PathWay />
-           </> :   <LayoutEditer>
-           <Style>
-               <ModeContext.Provider value="view">
-                   <Page />
-               </ModeContext.Provider>
-           </Style>
-       </LayoutEditer>}
-          
-             
-           
+                    </ModeContext.Provider>
+                </Style>
+            </LayoutEditer> : <>
+                    <LayoutEditer>
+                        <Style>
+                            <SideBar />
+                            <ModeContext.Provider value={this.state.view}>
+                                <PageEditer >
+                                    <Page />
+                                </PageEditer>
+                            </ModeContext.Provider>
+                            <Inspector />
+                        </Style>
+                    </LayoutEditer>
+                    <PathWay />
+                </>}
+
+
+
 
         </WrappeAllApp>
     }

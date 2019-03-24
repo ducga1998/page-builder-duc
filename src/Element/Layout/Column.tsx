@@ -10,7 +10,7 @@ class Column extends React.Component<any> {
                 Column
             </$Column>
         }
-        return <$Column className="col-sm">
+        return <$Column className="col-sm" mode={this.props.mode}>
             {this.props.children}
         </$Column>
     }
