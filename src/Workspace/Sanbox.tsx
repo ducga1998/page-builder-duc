@@ -1,37 +1,45 @@
 import * as React from 'react'
-// import BaseContainer from '.../Container/BaseContainer';
 import PageEditer from '../Workspace/pageEditer'
 import SideBar from '../Workspace/sidebar';
 import Page from '../Element/Page/Page';;
-
 import Inspector from '../Workspace/inspector';
 import PathWay from './Footer/pathway';
 import Style from '../Element/Style';
 import styled from 'styled-components';
+import { ModeContext } from '../Container/PageContainer';
+import Navbar from './navbar';
 class Sanbox extends React.Component<any> {
-    wrapperRef : HTMLElement
-    componentDidMount(){
-        if(!this.wrapperRef) return 
-        this.wrapperRef.style.height = window.innerHeight + 'px'
-        window.addEventListener('resize' , () => {
-            console.log('')
-            this.wrapperRef.style.height = window.innerHeight + 'px'
-        })
+    state = {
+        view : 'edit'
     }
     render() {
-        return <WrappeAllApp ref={ e => this.wrapperRef =  e}>
-              
-                <LayoutEditer>
-                    <Style>
-                    <SideBar />
+        return <WrappeAllApp >
+          <Navbar onChange={ (view) => { this.setState({view})}} active={this.state.view}/>
+
+           {this.state.view  === 'edit' ?<>
+            <LayoutEditer>
+            <Style>
+                <SideBar />
+                <ModeContext.Provider value="edit">
                     <PageEditer >
-                    <Page />
+                        <Page />
                     </PageEditer>
-                    <Inspector />
-                    </Style>
-                </LayoutEditer>
-                <PathWay />
-               
+                </ModeContext.Provider>
+                <Inspector />
+            </Style>
+        </LayoutEditer>
+        <PathWay />
+           </> :   <LayoutEditer>
+           <Style>
+               <ModeContext.Provider value="view">
+                   <Page />
+               </ModeContext.Provider>
+           </Style>
+       </LayoutEditer>}
+          
+             
+           
+
         </WrappeAllApp>
     }
 }
@@ -39,6 +47,8 @@ const WrappeAllApp = styled.div`
     overflow: scroll;
     display :flex;
     flex-direction : column;
+    height: 100%;
+   
 `
 const LayoutEditer = styled.div`
 display : flex;

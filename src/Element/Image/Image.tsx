@@ -1,17 +1,16 @@
 import * as React from 'react'
 import styled from 'styled-components';
 import enhanceElement from '../../Core/enhanceElement';
-import placeholder from './placeholder.png'
 import UIField from '../../Components/UI/UIField';
-import { ControlInput, ControlSelect } from '../../Core/Binding';
+import { ControlInput } from '../../Core/Binding';
 interface IPicture   {
     src : string,
     size : 'lg'| 'md'| 'sm'
 }
 const options = [
-    { value: '200px', label: 'Large  size' },
+    { value: '200px', label: 'Small  size' },
     { value: '400px', label: 'Medium size' },
-    { value: '60px', label: 'Small Size' }
+    { value: '600px', label: 'Large Size' }
 ]
 class Image extends React.Component<IPicture> {
     static type = 'Image'

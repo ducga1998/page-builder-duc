@@ -22,7 +22,7 @@ const options = [
 class Button extends React.Component<any> {
     static type = 'Button'
     static defaultProps = {
-        categoryButton:  { value: 'default', label: 'Default Button' },
+        categoryButton:  { value: 'danger' },
         ouline: false
     }
     static get InspectorDuc() {
@@ -53,6 +53,7 @@ class Button extends React.Component<any> {
         }
     }
     render() {
+        console.log('this.props.mode',this.props.mode)
         const { ouline, categoryButton } = this.props
         console.log('categoryButton',categoryButton)
         // const {elementContainer :{state : {data : {categoryButton}}}} = this.props

@@ -7,51 +7,65 @@ import observeRect from '../help/observe-rect';
 
 class Selection extends React.Component<any> {
     state = {
-        target : null
+        target: null
     }
-    selRef :HTMLElement
-    wrapperRef:HTMLElement
-    observeObj  = null 
-    overRef  :HTMLElement
-    updatePosition = async ( ) => {
-        const {idSelected} = this.props
-        const target = document.querySelector(`[data-element="${idSelected}"]`) as HTMLElement
-        if(!this.selRef) return
-        this.observeObj  =  observeRect(target , (rect :any) => {
-            const {width : widthOb , height : heightOb , top :topOb  , left : leftOb} = rect
-            Object.assign(this.selRef.style, { width: widthOb + 'px', height: heightOb + 'px', top: topOb +scrollTop+ 'px', left: leftOb + 'px', display: 'block' })
-        })  
-        if(!this.observeObj) return
-         await this.observeObj.observe()
-        if(!target) return
-        const type = target.getAttribute('data-type')
-        this.overRef.innerHTML = type
-        const { width, height, top, left } = target.getBoundingClientRect()
+    selRef: HTMLElement
+    wrapperRef: HTMLElement
+    observeDOM: HTMLElement
+    overRef: HTMLElement
+    observeTarget = null
+    currentTargetEl = null
+    findAndResize = (rect: any) => {
         const scrollTop = window.scrollY
-        Object.assign(this.selRef.style, { width: width + 'px', height: height + 'px', top: top +scrollTop+ 'px', left: left + 'px', display: 'block' })
-    }
-    componentDidUpdate(){
-       this.updatePosition()
-    }
-    componentWillUnmount(){
-        console.log('unmout')
-        if(this.observeObj){
-            this.observeObj.unobserve()
-        }
-    }
-    render() {
-        return <SubscribeOne to={workspaceContainer} bind={['selected']}>
+        const { width: widthOb, height: heightOb, top: topOb, left: leftOb } = rect
+        Object.assign(this.selRef.style,
             {
-                () => {
-                    const {selected} = workspaceContainer.state
-                    
-                    return <$Selection ref={ e => this.selRef = e} >
-                    <OverMini ref ={ e => this.overRef= e}></OverMini>
-                    </$Selection>
-                }
+                width: widthOb + 'px',
+                height: heightOb + 'px',
+                top: topOb + scrollTop + 'px',
+                left: leftOb + 'px',
+                display: 'block'
             }
-        </SubscribeOne>
+        )
     }
+
+updatePosition = async () => {
+    const { idSelected } = this.props
+    const target = document.querySelector(`[data-element="${idSelected}"]`) as HTMLElement
+    if (!this.selRef) return
+    console.log('selRef',this.selRef)
+    if (target !== this.observeDOM) {
+        this.observeTarget && this.observeTarget.unobserve()
+        this.observeTarget = observeRect(target, this.findAndResize)
+        this.observeTarget.observe()
+        this.currentTargetEl = target
+    }
+    if (!target) return
+    const type = target.getAttribute('data-type')
+    this.overRef.innerHTML = type
+    const { width, height, top, left } = target.getBoundingClientRect()
+    const scrollTop = window.scrollY
+    Object.assign(this.selRef.style, { width: width + 'px', height: height + 'px', top: top + scrollTop + 'px', left: left + 'px', display: 'block' })
+}
+componentDidUpdate(){
+    if(this.props.mode === 'edit'){
+        this.updatePosition()
+    }
+}
+componentWillUnmount(){
+    console.log('unmout')
+}
+render() {
+    return <SubscribeOne to={workspaceContainer} bind={['selected']}>
+        {
+            () => {
+                return <$Selection ref={e => this.selRef = e} >
+                    <OverMini ref={e => this.overRef = e}></OverMini>
+                </$Selection>
+            }
+        }
+    </SubscribeOne>
+}
 }
 const OverMini = styled.div`
     background : black;

@@ -1,27 +1,38 @@
 import * as React from 'react';
 import { Nav, LogoLink, IconLink, Label } from '../Components/styled/nav';
-import Icon from '../Components/Icon';
 import styled from 'styled-components';
-import { FlexCol } from '../Components/styled/base';
-// import { AvatarImage } from 'src/Components/styled/avatar';
+import Icon from '../Components/Icon';
 class Navbar extends React.Component<any> {
     state = {
         sideBarOpen: false,
         notificationOpen: false
     }
     render() {
+        const {active , onChange} = this.props
         return <Nav>
             <Nav>
-                <NavButton  >
-                    <IconLink  ><i className="fas fa-pencil-alt" /> OK  </IconLink>
+             {
+    
+                  [{name : 'edit',icon:"edit"} , {name : 'view' , icon: 'view-forward'} ].map(item  => {
+                    return   <NavButton  >
+                    <IconLink 
+                    data-active={item.name === active}
+                    onClick={() => {
+                        onChange(item.name)
+                    }}
+                    ><Icon glyph={item.icon} /> {item.name} </IconLink>
                 </NavButton>
-                <NavButton  >
-                    <IconLink  ><i className="fas fa-pencil-alt" /> HÊHHEE  </IconLink>
-                </NavButton>x
+                })
+             }
+               
             </Nav>
-            <Nav>
-
-            </Nav>
+           {this.props.active === 'view'?  <Nav>
+            <NavButton  >
+                    <IconLink 
+                    > Copy Code  </IconLink>
+                </NavButton>
+            </Nav>: null}
+            
         </Nav>
     }
 }

@@ -4,9 +4,9 @@ import enhanceElement from '../../Core/enhanceElement';
 class Column extends React.Component<any> {
     static type = 'Column'
     render() {
-        if (React.Children.count(this.props.children) === 0) {
+        if (React.Children.count(this.props.children) === 0 && this.props.mode ==='edit') {
             console.log('this.props.children', this.props.children)
-            return <$Column className="col-sm" center>
+            return <$Column className="col-sm" center >
                 Column
             </$Column>
         }

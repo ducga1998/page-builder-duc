@@ -26,8 +26,9 @@ class Text extends React.Component<any> {
         this.props.elementContainer.setState({ data: { value } })
     }
     render() {
+        const {mode}  = this.props
         return <$Span
-            contentEditable
+            contentEditable={mode === 'edit'? true : false}
             suppressContentEditableWarning
             onMouseDown={e => {
                 //  e.preventDefault()
