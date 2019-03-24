@@ -17,6 +17,13 @@ function UIFieldResouce() {
                 </UIPopup>
                 </FlexRow> 
             </UIField>
+            <UIField  label="Color">
+             <FlexRow>  <ControlInput bind="style.color" />
+                <UIPopup trigger={ <Icon glyph="plus" />} >
+                        <ControlPicker bind="style.color" />
+                </UIPopup>
+                </FlexRow> 
+            </UIField>
             <UIField label="Padding(It is BoxModel for padding)" horizontal>
                 <UIField><ControlInput bind="style.paddingTop"  /></UIField>
                 <UIField vectical>
