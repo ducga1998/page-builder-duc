@@ -14,32 +14,29 @@ class Sanbox extends React.Component<any> {
     }
     render() {
         return <WrappeAllApp >
-            <Navbar onChange={(view) => { this.setState({ view }) }} active={this.state.view} />
+            <ModeContext.Provider value={this.state.view}>
+                <Navbar onChange={(view) => { this.setState({ view }) }} active={this.state.view} />
 
-            {this.state.view === 'view' ? <LayoutEditer>
-                <Style>
-                    <ModeContext.Provider value="view">
+                {this.state.view === 'view' ? <LayoutEditer>
+                    <Style>
                         <Page />
-                    </ModeContext.Provider>
-                </Style>
-            </LayoutEditer> : <>
-                    <LayoutEditer>
-                        <Style>
-                            <SideBar />
-                            <ModeContext.Provider value={this.state.view}>
+                    </Style>
+                </LayoutEditer> : <>
+                        <LayoutEditer>
+                            <Style>
+                                <SideBar />
                                 <PageEditer >
                                     <Page />
                                 </PageEditer>
-                            </ModeContext.Provider>
-                            <Inspector />
-                        </Style>
-                    </LayoutEditer>
-                    <PathWay />
-                </>}
+                                <Inspector />
+                            </Style>
+                        </LayoutEditer>
+                        <PathWay />
+                    </>}
 
 
 
-
+            </ModeContext.Provider>
         </WrappeAllApp>
     }
 }

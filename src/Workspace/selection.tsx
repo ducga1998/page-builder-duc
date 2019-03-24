@@ -18,6 +18,7 @@ class Selection extends React.Component<any> {
     currentTargetEl = null
     findAndResize = (rect: any) => {
         if(!this.selRef) return 
+        console.log('selRef selRefselRefselRef', this.selRef)
         const scrollTop = window.scrollY
         const { width: widthOb, height: heightOb, top: topOb, left: leftOb } = rect
         Object.assign(this.selRef.style,
@@ -34,12 +35,11 @@ class Selection extends React.Component<any> {
     updatePosition = async () => {
         const { idSelected } = this.props
         const target = document.querySelector(`[data-element="${idSelected}"]`) as HTMLElement
-        if (!this.selRef ) return
-        if(this.props.mode === 'view'){
-            return null
-        }
+        // if (!this.selRef ) return
+      
         console.log('selRef', this.selRef)
         if (target !== this.observeDOM) {
+        //    if(! this.observeTarget ) return 
             this.observeTarget && this.observeTarget.unobserve()
             this.observeTarget = observeRect(target, this.findAndResize)
             this.observeTarget.observe()
@@ -54,18 +54,14 @@ class Selection extends React.Component<any> {
     }
     componentDidUpdate() {
         console.log('modemode',this.props.mode)
-        if (this.props.mode === 'edit') {
+        // if (this.props.mode === 'edit') {
             this.updatePosition()
-        }
+        // }
     }
     componentWillUnmount() {
         console.log('unmout')
     }
     render() {
-        const {mode} = this.props
-        if(mode === 'view'){
-            return null
-        }
         
         return <SubscribeOne to={workspaceContainer} bind={['selected']}>
                 {
@@ -98,7 +94,8 @@ const $Selection = styled.div`
 	/* display: none; */
 	z-index: 11;
 `
-export default enHanceSelection(Selection)
+export default Selection
+// this is function tranform context to props for elemnet Selection 
 function enHanceSelection(Element) {
     return class extends React.Component<any> {
         render() {
