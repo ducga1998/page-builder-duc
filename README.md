@@ -2,7 +2,7 @@
 
 ## Demo : https://arcane-coast-50710.herokuapp.com/
 ## Guidline and info project
-### Build page build as reactjs
+### Build page build as reactj, typescript  and project intergated CI/CD
 ### Expected it complete for 1 moth
 ### Run simple vl : yarn start (it start port 3000, you make sure not run port before run command :) )
 <ul>
@@ -25,6 +25,7 @@
  <li> Each element in Page editer there are their own inspector </li>
  <li> Mechaism setStyle and setState</li>
  <ul/>
+ 
  
 ### 2.00 (24/3/2019)
  <ul>
