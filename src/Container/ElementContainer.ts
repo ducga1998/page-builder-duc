@@ -2,7 +2,8 @@ import BaseContainer, { storeElement } from './BaseContainer';
 import {camelCase} from 'lodash'
 import StyleContainer from './StyleContainer';
 import workspaceContainer from './WorkspaceContainer';
-class ElementContainer extends BaseContainer {
+import HistoryContainer from './HistoryContainer';
+class ElementContainer extends HistoryContainer {
     instanceStyle  = null
     styles   = null
     constructor(state){

@@ -33,9 +33,6 @@ class Sanbox extends React.Component<any> {
                         </LayoutEditer>
                         <PathWay />
                     </>}
-
-
-
             </ModeContext.Provider>
         </WrappeAllApp>
     }
