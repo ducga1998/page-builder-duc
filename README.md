@@ -1,5 +1,5 @@
 <i>Product design by: Nguyen Minh Duc</i> :joy::joy::joy::joy::joy::joy:
-
+# Not lir, not boostrap, all my custom :) 
 ## Demo : https://arcane-coast-50710.herokuapp.com/
 ## Guidline and info project
 ### Build page build as reactj, typescript  and project intergated CI/CD
