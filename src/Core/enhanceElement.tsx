@@ -1,6 +1,7 @@
 
 // it' s will wrap all element 
 import * as React from 'react'
+// enhance 2
 export default function enhanceElement(Element) {
     return class extends Element {
         render() {
@@ -28,3 +29,20 @@ export default function enhanceElement(Element) {
         }
     }
 }
+// enhance 1
+class B extends React.Component {
+    render(){
+        return <div>
+            aaa
+        </div>
+    }
+}
+function enhanceElement2(B){
+    return class extends React.Component{
+        
+        render(){
+            return  <B />
+        }
+    }
+}
+ enhanceElement2(B)

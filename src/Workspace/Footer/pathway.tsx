@@ -12,8 +12,6 @@ class PathWay extends React.Component<any> {
     updatePathWay = (domElement , arr = []) => {
         if(!domElement ) return  arr
         const parentDom = domElement.parentElement.closest('[data-element]')
-            // console.log('parentDom',parentDom)
-
         if(!domElement ||!parentDom ){
             return arr
         }
@@ -31,7 +29,7 @@ class PathWay extends React.Component<any> {
            {
                 ws => {
                     const idSelected = ws.state.selected[0]
-                    if(!idSelected) return<WrapperPathWay />
+                    if(!idSelected) return <WrapperPathWay />
                     const containerElement = storeElement.get(idSelected)
                     const arrPath = this.updatePathWay(containerElement.state.domElement) as any[]
                     return <WrapperPathWay>

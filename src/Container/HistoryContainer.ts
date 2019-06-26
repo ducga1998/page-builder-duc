@@ -35,6 +35,7 @@ class HistoryContainer extends BaseContainer {
         const prevState = { [Object.keys(state)[0]]: this.state[Object.keys(state)[0]] }
         // Object.keys[value]
         const action = { target: this, nextState, prevState }
+        console.log('action',action)
         this.historyMn.push(action)
         return super.setState(state, callback)
     }

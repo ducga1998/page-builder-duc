@@ -1,12 +1,12 @@
-    import { Container } from 'unstated-x'
+import { Container } from 'unstated-x'
 import React from 'react';
     // pagecontainer  => it control all everthing app 
-    class PageContainer extends Container<any> {
+class PageContainer extends Container<any> {
         getDataCache() {
-            return () => {
-                
-            }
+                return () => {
+                    
         }
     }
-    export default PageContainer
-    export const ModeContext = React.createContext(null)
+}
+export default PageContainer
+export const ModeContext = React.createContext(null)

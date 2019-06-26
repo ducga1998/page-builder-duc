@@ -29,6 +29,7 @@ class ElementContainer extends HistoryContainer {
         //    console.log(arrState)
        
         this._listenersStyle.map(item =>item())
+        
     }
     get getStyle(){
         // console.log('className',this.state.className)
@@ -36,7 +37,7 @@ class ElementContainer extends HistoryContainer {
         const instanceStyle  = document.styleSheets[2]  as any
         const arrInstanceStyle  =  Array.from(instanceStyle.cssRules)
         const rule = arrInstanceStyle.find((rule : any) => rule.selectorText === `.${this.state.className}`  )
-    //    console.log('rule',rule , instanceStyle)
+        // console.log('rule',rule , instanceStyle)
         if(!rule){
              instanceStyle.insertRule(`.${className}{}`,arrInstanceStyle.length)
              return instanceStyle.cssRules[arrInstanceStyle.length]
@@ -51,7 +52,8 @@ class ElementContainer extends HistoryContainer {
         const {sheetStyle} = this.state
         if(!this.checkExiesRule){
             sheetStyle.insertRule(`.${selector}{${css}}`,sheetStyle.length)
-        }else{
+        }
+        else{
             const cssRule  =  Array.from(sheetStyle.cssRules).find((item:any) => item.selectorText.includes(this.selector)) as any
             const cssCamelCase = camelCase(css)
             const arr =  css.split(':')

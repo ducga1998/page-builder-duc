@@ -53,9 +53,7 @@ const fakeData = [
             } },
             {id : 7 , type : 'Text' ,data: {
                 value : 'Link 3'
-            } },
-            
-        
+            } }
         ]
     },
     {
@@ -76,7 +74,7 @@ class Sidebar extends React.Component {
     handleStartDrap = (ev) => {
         const dataAttrString = ev.target.getAttribute('data-element')
         INTERACTION.categoryDrapStart = 'DRAG_ELEMENT'
-        const arrDataConvert =JSON.parse(dataAttrString)
+        const arrDataConvert = JSON.parse(dataAttrString)
         if(Array.isArray(arrDataConvert) && arrDataConvert.length > 0){
                 const root =  arrDataConvert.find(item => item.id === 0) as any
                 console.log('root',root)
